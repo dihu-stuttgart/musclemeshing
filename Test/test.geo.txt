@@ -1,0 +1,17 @@
+//gmsh test project
+Mesh.RemeshAlgorithm = 1; // automatic
+CharacteristicLenghtFactor = 0.5;
+
+Merge "biceps_rec.msh";
+CreateTopology;
+
+ss[] = Surface "*";
+s = news;
+For i In {0 : #ss[]-1}
+  Compound Surface(s+i) = ss[i];
+EndFor
+
+// create the volume based on the new compounds
+Surface Loop(1) = {s : s + #ss[]-1};
+Volume (1) = {1};
+Mesh 1;
