@@ -1,7 +1,7 @@
 Mesh.RemeshAlgorithm = 1; // automatic
 CharacteristicLenghtFactor = 0.5;
 
-Merge "Biceps.msh";
+Merge "10mm_Test_cube_rec.msh";
 
 ss[] = Surface {:};
 
