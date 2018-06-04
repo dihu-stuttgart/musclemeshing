@@ -16,7 +16,7 @@ Constraint {
   { Name Dirichlet_Ele; Type Assign;
     Case {
       { Region Ground; Value 0.; }
-      { Region Electrode; Value 1.e-3; }
+      { Region Electrode; Value 1.e+4; }
     }
   }
 }
