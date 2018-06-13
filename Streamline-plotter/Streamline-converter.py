@@ -31,6 +31,7 @@ for line in input_file:
         start = [0 for x in range(3)]
         start[0] = float(numbers[0])
         start[1] = float(numbers[1])
+        print start
         temp = numbers[2]
         temp = temp.split("){")
         start[2] = float(temp[0])
@@ -51,8 +52,12 @@ for line in input_file:
                 i = 0
                 j +=1
         vectors[n-1][2] =start[2] + float(numbers[3*n+1].split("}")[0])
+        start = [start]
+        vectors = start + vectors
         #put line into container
         streamlines.append(vectors)
+        
+        
 #setting up plot
 fig = plt.figure()
 ax = fig.gca(projection='3d')
@@ -67,17 +72,29 @@ for l in streamlines:
         xs.append(x[0])
         ys.append(x[1])
         zs.append(x[2])
-    ax.plot(xs, ys, label = 'line'+str(i))
+    ax.plot(xs, ys, zs, label = 'line'+str(i))
     i+=1
+ax.set_xlim3d(0,200)
+ax.set_ylim3d(0,200)
+ax.set_zlim3d(50,250)
 fig.show()
 
    
-   
-   
-   
-   
-   
-   
+output_file = open("streamlines.geo", "rb+")
+i=10000000
+j=10000000
+for l in streamlines:
+    curve = "Bezier("+str(20000+j)+")={"
+    for point in l:
+        output_file.write("Point("+str(i)+") = {"+str(point[0])+","+str(point[1])+","+str(point[2])+"};\n")
+        curve += str(i)+","
+        i+=1
+    curve = curve[:-1] #removing last character (",")
+    curve += "};\n"
+    j+=1
+    output_file.write(curve)
+        
+output_file.close()
    
    
    
