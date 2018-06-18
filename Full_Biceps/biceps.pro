@@ -114,8 +114,10 @@ h = 2.e-3; // vertical position of the cut
 PostOperation {
   { Name Map; NameOfPostProcessing EleSta_v;
      Operation {
-       Print [ v, OnElementsOf Vol_Ele, File "L-Ele.pos" ];
-       Print [ e, OnElementsOf Vol_Ele, File "L-Ele.pos" ];
+       Print [ v, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+       Print [ e, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+       Echo [Str["Plugin(StreamLines).x0= 0;","Plugin(StreamLines).y0=0", "Plugin(StreamLines).z0=0","Plugin(StreamLines).x1=1","Plugin(StreamLines).y1=0","Plugin(StreamLines).z1=0","Plugin(StreamLines).x2=0","Plugin(StreamLines).y2=1","Plugin(StreamLines).z2=0"],File>> "Biceps.pos"];
+       Echo["Plugin(StreamLines).Run;",File>>"Bicpeps.pos"];
      }
   }
   { Name Cut; NameOfPostProcessing EleSta_v;
