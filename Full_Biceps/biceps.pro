@@ -116,8 +116,8 @@ PostOperation {
      Operation {
        Print [ v, OnElementsOf Vol_Ele, File "Biceps.pos" ];
        Print [ e, OnElementsOf Vol_Ele, File "Biceps.pos" ];
-       Echo [Str["Plugin(StreamLines).x0= 0;","Plugin(StreamLines).y0=0", "Plugin(StreamLines).z0=0","Plugin(StreamLines).x1=1","Plugin(StreamLines).y1=0","Plugin(StreamLines).z1=0","Plugin(StreamLines).x2=0","Plugin(StreamLines).y2=1","Plugin(StreamLines).z2=0"],File>> "Biceps.pos"];
-       Echo["Plugin(StreamLines).Run;",File>>"Bicpeps.pos"];
+       Echo [Str["Plugin(StreamLines).X0= -30.9;","Plugin(StreamLines).Y0=-20.1;", "Plugin(StreamLines).Z0=-189;","Plugin(StreamLines).X1=-45.4;","Plugin(StreamLines).Y1=-35.5;","Plugin(StreamLines).Z1=-179;","Plugin(StreamLines).X2=-30;","Plugin(StreamLines).Y2=-30;","Plugin(StreamLines).Z2=-182;","Plugin(StreamLines).NumPointsU = 20;","Plugin(StreamLines).NumPointsV = 20;","Plugin(StreamLines).MaxIter = 300;","Plugin(StreamLines).DT = 0.3;"],File>> "Biceps.pos"];
+       Echo["Plugin(StreamLines).Run;",File>>"Biceps.pos"];
      }
   }
   { Name Cut; NameOfPostProcessing EleSta_v;
