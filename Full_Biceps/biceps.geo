@@ -22,3 +22,4 @@ Physical Surface("Electrode",1000) = {48, 40, 41, 46, 38, 39, 37, 36, 35, 34, 43
 
 Mesh 3;
 Solver.AutoMesh = 0;
+Mesh.saveAll;

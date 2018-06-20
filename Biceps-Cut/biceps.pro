@@ -113,14 +113,10 @@ h = 2.e-3; // vertical position of the cut
 PostOperation {
   { Name Map; NameOfPostProcessing EleSta_v;
      Operation {
-       Print [ v, OnElementsOf Vol_Ele, File "L-Ele.pos" ];
-       Print [ e, OnElementsOf Vol_Ele, File "L-Ele.pos" ];
+       Print [ v, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+       Print [ e, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+       Echo [Str["Plugin(StreamLines).X0= 123;","Plugin(StreamLines).Y0=192;", "Plugin(StreamLines).Z0=255;","Plugin(StreamLines).X1=96;","Plugin(StreamLines).Y1=192;","Plugin(StreamLines).Z1=255;","Plugin(StreamLines).X2=123;","Plugin(StreamLines).Y2=174;","Plugin(StreamLines).Z2=255;","Plugin(StreamLines).NumPointsU = 20;","Plugin(StreamLines).NumPointsV = 20;","Plugin(StreamLines).MaxIter = 300;","Plugin(StreamLines).DT = 0.3;"],File>> "Biceps.pos"];
+       Echo["Plugin(StreamLines).Run;",File>>"Biceps.pos"];
      }
-  }
-  { Name Cut; NameOfPostProcessing EleSta_v;
-    // same cut as above, with more points and exported in raw text format
-    Operation {
-      Print [ e, OnLine {{e,e,0}{14.e-3,e,0}} {500}, Format TimeTable, File "L-Ele-cut.txt" ];
-    }
   }
 }
