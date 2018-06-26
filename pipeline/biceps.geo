@@ -2,7 +2,7 @@
 Mesh.RemeshAlgorithm = 1; // automatic
 CharacteristicLenghtFactor = 0.5;
 
-Merge "bicepsmesh.msh";
+Merge "cutBiceps.msh";
 Reclassify2D;
 CreateTopology;
 
@@ -10,11 +10,11 @@ ss[] = Surface {:};
 
 Compound Surface{ss[]};
 
-Surface Loop(1) = {ss[]};
-Volume(1) = {1};
-Physical Surface (1) = {ss[]};
-Physical Volume ("Body",10) = 1;
-
-//+
+Surface Loop(10000) = {ss[]};
+Volume(100) = {10000};
+Physical Surface (100) = {ss[]};
+Physical Volume ("Body",10) = 100;
 Mesh 3;
 Solver.AutoMesh = 0;
+Physical Surface ("Electrode",1000) = 4;
+Physical Surface ("Ground",2000) = 3;
