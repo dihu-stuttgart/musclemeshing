@@ -1,7 +1,7 @@
 #DIHU tool for finding Surfaces at the upper and lower edges of the bicpeps
 #using numpy-stl for stl processing
 #http://numpy-stl.readthedocs.io/en/latest/usage.html
-mport numpy 
+import numpy 
 from stl import mesh
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d as mplt
@@ -21,7 +21,7 @@ minZ = biceps.min_[2]
 upperSurface = []
 lowerSurface = []
 
-surfaces = biceps.items()
+surfaces = []
 #TODO iterate over surfaces and add them to the corresponding container
-
+print biceps.items()
 #plt.show()

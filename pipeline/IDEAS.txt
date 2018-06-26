@@ -1,0 +1,14 @@
+FUNKTIONIERT! und speichert in cutBiceps.msh
+gmsh cutBiceps.stl -reclassify
+
+.msh lesen und NODES Max/Min Z bestimmen
+Format:
+NR	X	Y	Z
+
+in ELEMENTS die jeweiligen ein/ausgänge identifizieren
+Format:
+NR	?	?	?	group	P1	P2	P3
+
+Gruppe + neuer Name + physical Definition in Biceps.geo schreiben
+.geo führt dann simulation aus
+in Biceps.pro muss dann streamline setup angepasst werden (per Script)
