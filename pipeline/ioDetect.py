@@ -1,5 +1,7 @@
 #In/Out Detection
-input_file = open("cutBiceps.msh","r")
+import sys
+
+input_file = open(str(sys.argv[1]),"r")
 input_file.readline()
 input_file.readline()
 input_file.readline()

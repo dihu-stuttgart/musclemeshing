@@ -16,5 +16,3 @@ Physical Surface (100) = {ss[]};
 Physical Volume ("Body",10) = 100;
 Mesh 3;
 Solver.AutoMesh = 0;
-Physical Surface ("Electrode",1000) = 4;
-Physical Surface ("Ground",2000) = 3;
