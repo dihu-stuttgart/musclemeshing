@@ -3,7 +3,6 @@ Mesh.RemeshAlgorithm = 1; // automatic
 CharacteristicLenghtFactor = 0.5;
 
 Merge "cutBiceps.msh";
-Reclassify2D;
 CreateTopology;
 
 ss[] = Surface {:};
@@ -15,4 +14,11 @@ Volume(100) = {10000};
 Physical Surface (100) = {ss[]};
 Physical Volume ("Body",10) = 100;
 Mesh 3;
+//disable Automatic Remeshing
 Solver.AutoMesh = 0;
+//set Output Format to .msh
+Mesh.Format = 1;
+
+Physical Surface ("Electrode",1000) = 1016;
+Physical Surface ("Ground",2000) = 5;
+Save "biceps.msh";

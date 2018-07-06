@@ -7,7 +7,7 @@ input_file.readline()
 input_file.readline()
 
 numNodes = 0
-node = []
+nodes = []
 numElements = 0
 elements = []
 numGroups = 0
@@ -91,7 +91,35 @@ print upperSurface
 
 output_file = open("biceps.geo","a")
 output_file.write("\nPhysical Surface (\"Electrode\",1000) = " + str(upperSurface) +";\n")
-output_file.write("Physical Surface (\"Ground\",2000) = " + str(lowerSurface) +";\n")          
+output_file.write("Physical Surface (\"Ground\",2000) = " + str(lowerSurface) +";\nSave \"biceps.msh\";\n")          
 output_file.close()
 
 #TODO writing postoperation with Streamline boundaries
+#finding max/min X/Y on upper surface
+minX = float('inf')
+maxX = float('-inf')
+minY =float('inf')
+maxY = float('-inf')
+for g in groups:
+   for e in g:
+      for i in range(5, len(e)):
+         point = e[i]
+         if nodes[int(point) -1][2] == maxZ:
+            if nodes[int(point) -1][0] > maxX :
+               maxX =  nodes[int(point) -1][0]
+            if( nodes[int(point) -1][0]< minX):
+               minX =  nodes[int(point) -1][0]
+                 
+            if nodes[int(point) -1][1] > maxY:
+               maxY =  nodes[int(point) -1][1]
+            
+            if( nodes[int(point) -1][1]< minY):
+               minY =  nodes[int(point) -1][1]
+
+output_file = open("biceps.pro","a")
+output_file.write("\nPostOperation {\n")
+output_file.write("{ Name Map; NameOfPostProcessing EleSta_v;\n Operation {\n")
+output_file.write("Print [ v, OnElementsOf Vol_Ele, File \"Biceps.pos\" ];\n       Print [ e, OnElementsOf Vol_Ele, File \"Biceps.pos\" ];\n")
+output_file.write("Echo [Str[\"Plugin(StreamLines).X0="+str(minX)+";\",\"Plugin(StreamLines).Y0="+str(minY)+";\", \"Plugin(StreamLines).Z0="+str(maxZ)+";\",\"Plugin(StreamLines).X1="+str(maxX)+";\",\"Plugin(StreamLines).Y1="+str(minY)+";\",\"Plugin(StreamLines).Z1="+str(maxZ)+";\",\"Plugin(StreamLines).X2="+str(minX)+";\",\"Plugin(StreamLines).Y2="+str(maxY)+";\",\"Plugin(StreamLines).Z2="+str(maxZ)+";\",\"Plugin(StreamLines).NumPointsU = 20;\",\"Plugin(StreamLines).NumPointsV = 20;\",\"Plugin(StreamLines).MaxIter = 300;\",\"Plugin(StreamLines).DT = 0.3;\"],File>> \"Biceps.pos\"];")  
+output_file.write("\nEcho[\"Plugin(StreamLines).Run;\",File>>\"Biceps.pos\"];\n}\n}\n}")
+output_file.close()
