@@ -80,7 +80,7 @@ ax.set_zlim3d(50,250)
 fig.show()
 
    
-output_file = open("streamlines.geo", "rb+")
+output_file = open("streamlines.geo", "w+")
 i=10000000
 j=10000000
 for l in streamlines:
