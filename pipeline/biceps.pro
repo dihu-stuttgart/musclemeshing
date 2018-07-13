@@ -106,3 +106,15 @@ PostProcessing {
   }
 }
 
+
+PostOperation {
+{ Name Map; NameOfPostProcessing EleSta_v;
+ Operation {
+Print [ v, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+       Print [ e, OnElementsOf Vol_Ele, File "Biceps.pos" ];
+Echo [Str["Plugin(StreamLines).X0=101.190307617;","Plugin(StreamLines).Y0=176.671508789;", "Plugin(StreamLines).Z0=262.948394775;","Plugin(StreamLines).X1=123.593971252;","Plugin(StreamLines).Y1=176.671508789;","Plugin(StreamLines).Z1=262.948394775;","Plugin(StreamLines).X2=101.190307617;","Plugin(StreamLines).Y2=190.330093384;","Plugin(StreamLines).Z2=262.948394775;","Plugin(StreamLines).NumPointsU = 20;","Plugin(StreamLines).NumPointsV = 20;","Plugin(StreamLines).MaxIter = 300;","Plugin(StreamLines).DT = 0.3;"],File>> "Biceps.pos"];
+Echo["Plugin(StreamLines).Run;",File>>"Biceps.pos"];
+Echo["Save View[4] 'BicepsStreamline.pos';",File>>"Biceps.pos"];
+}
+}
+}

@@ -1,4 +1,4 @@
 python ioDetect.py cutBiceps.msh
-gmsh biceps.pro -run
+C:\Users\Tobias\Desktop\ProjektINF\onelab-Windows64/gmsh C:\Users\Tobias\Desktop\ProjektINF\Git-Repo\pipeline/biceps.pro -run
 python Streamline-converter.py 
 pause

@@ -18,3 +18,7 @@ Mesh 3;
 Solver.AutoMesh = 0;
 //set Output Format to .msh
 Mesh.Format = 1;
+
+Physical Surface ("Electrode",1000) = 1016;
+Physical Surface ("Ground",2000) = 5;
+Save "biceps.msh";
