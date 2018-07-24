@@ -4,6 +4,7 @@ Created on Mon Jun 04 21:35:05 2018
 
 @author: Tobias
 """
+import sys
 import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
@@ -11,7 +12,7 @@ import matplotlib.pyplot as plt
 
 #Streamline-converter
 #Reading Header
-input_file = open("BicepsStreamline.pos","r")
+input_file = open(str(sys.argv[1]),"r")
 input_file.readline()
 input_file.read(5)
 #container for streamlines
@@ -31,7 +32,6 @@ for line in input_file:
         start = [0 for x in range(3)]
         start[0] = float(numbers[0])
         start[1] = float(numbers[1])
-        print start
         temp = numbers[2]
         temp = temp.split("){")
         start[2] = float(temp[0])

@@ -1,4 +1,4 @@
 python ioDetect.py cutBiceps.msh
 gmsh biceps.pro -run
-python Streamline-converter.py 
+python SLConvert.py 
 pause
