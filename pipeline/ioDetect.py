@@ -6,6 +6,9 @@ input_file.readline()
 input_file.readline()
 input_file.readline()
 
+numStreamlinesX = sys.argv[2]
+numStreamlinesY = sys.argv[3]
+meshRefine = int(sys.argv[4])
 numNodes = 0
 nodes = []
 numElements = 0
@@ -97,6 +100,8 @@ input_file.close()
 
 output_file = open("muscle.geo","w")
 output_file.write(inFile)
+for i in range(0, meshRefine):
+	output_file.write("\nRefineMesh;")
 output_file.write("\nPhysical Surface (\"Electrode\",1000) = " + str(upperSurface) +";\n")
 output_file.write("Physical Surface (\"Ground\",2000) = " + str(lowerSurface) +";\nSave \"muscle.msh\";\n")          
 output_file.close()
@@ -132,7 +137,7 @@ output_file.write(inFile)
 output_file.write("\nPostOperation {\n")
 output_file.write("{ Name Map; NameOfPostProcessing EleSta_v;\n Operation {\n")
 output_file.write("Print [ v, OnElementsOf Vol_Ele, File \"muscle.pos\" ];\n       Print [ e, OnElementsOf Vol_Ele, File \"muscle.pos\" ];\n")
-output_file.write("Echo [Str[\"Plugin(StreamLines).X0="+str(minX)+";\",\"Plugin(StreamLines).Y0="+str(minY)+";\", \"Plugin(StreamLines).Z0="+str(maxZ)+";\",\"Plugin(StreamLines).X1="+str(maxX)+";\",\"Plugin(StreamLines).Y1="+str(minY)+";\",\"Plugin(StreamLines).Z1="+str(maxZ)+";\",\"Plugin(StreamLines).X2="+str(minX)+";\",\"Plugin(StreamLines).Y2="+str(maxY)+";\",\"Plugin(StreamLines).Z2="+str(maxZ)+";\",\"Plugin(StreamLines).NumPointsU = 20;\",\"Plugin(StreamLines).NumPointsV = 20;\",\"Plugin(StreamLines).MaxIter = 300;\",\"Plugin(StreamLines).DT = 0.3;\"],File>> \"muscle.pos\"];")  
+output_file.write("Echo [Str[\"Plugin(StreamLines).X0="+str(minX)+";\",\"Plugin(StreamLines).Y0="+str(minY)+";\", \"Plugin(StreamLines).Z0="+str(maxZ)+";\",\"Plugin(StreamLines).X1="+str(maxX)+";\",\"Plugin(StreamLines).Y1="+str(minY)+";\",\"Plugin(StreamLines).Z1="+str(maxZ)+";\",\"Plugin(StreamLines).X2="+str(minX)+";\",\"Plugin(StreamLines).Y2="+str(maxY)+";\",\"Plugin(StreamLines).Z2="+str(maxZ)+";\",\"Plugin(StreamLines).NumPointsU = "+numStreamlinesX+";\",\"Plugin(StreamLines).NumPointsV ="+ numStreamlinesY +";\",\"Plugin(StreamLines).MaxIter = 300;\",\"Plugin(StreamLines).DT = 0.3;\"],File>> \"muscle.pos\"];")  
 output_file.write("\nEcho[\"Plugin(StreamLines).Run;\",File>>\"muscle.pos\"];")
 output_file.write("\nEcho[\"Save View[4] 'muscleStreamline.pos';\",File>>\"muscle.pos\"];\n}\n}\n}")
 output_file.close()

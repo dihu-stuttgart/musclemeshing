@@ -2,7 +2,7 @@
 Mesh.RemeshAlgorithm = 1; // automatic
 CharacteristicLenghtFactor = 0.5;
 
-Merge "cutBiceps.msh";
+Merge "biceps.msh";
 CreateTopology;
 
 ss[] = Surface {:};
