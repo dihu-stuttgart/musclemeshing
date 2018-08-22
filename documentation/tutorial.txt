@@ -1,0 +1,22 @@
+1:The first step of calculation of the streamlines based on a CT-Scan of the muscle, using gmsh is to repair
+the stl file. Small holes in the surface would make it impossible for gmsh to mesh the volume.
+Most of the mesh processing tools (eg. Meshlab, Blender, Microsoft 3D Builder) feature a repair function.
+
+2: Since our pipeline isn't suited to compute the streamlines for a biceps with a fork included, we need to 
+cut the 3D-model just below the fork and some part from the opposite side. As a nice side-effect we get a 
+better distribution of the streamlines in the center part of the muscle.
+
+3: The stl-file doesn't connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a 
+volume in which we can compute the streamlines. To connect all the small surfaces, we reclassify the mesh with a threshold of 0.
+This runs a edge-detection for all triangles with an angle to its neighbour greater than 0 (so basically every neighbour) and we can connect all the 
+detected surfaces to one big surface.
+
+4: The reclassified muscle can then be reassambled within a gmsh specific script file. Another step here is to detect the inflow and outflow surfaces for later steps. A python programm is used for this detection. 
+
+5: 3D-Meshing the volume is done completely by gmsh.(bearbeitet)
+
+6: As stated by Choi and Blemker, a Laplacian vector field yields reasonable results when simulating fascicle arrangement. Thats why we use a simulation of an electronic field. GetDP the solver, used by gmsh, calculates the vectors  inside the mesh of the biceps.
+
+7: To create the streamlines, we apply the streamlines-plugin on the vector-view. We than have decent streamlines in the biceps brachii.
+
+8: With help of another Python script we extract the streamlines from the postprocessing file and write them in a new geo file. Merging this file with the original biceps surface displays their arrangement.

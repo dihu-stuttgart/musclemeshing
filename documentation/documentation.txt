@@ -1,0 +1,31 @@
+\section{Reassembling}
+The stl-file doesn't connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than 0°. This excludes the two cut surfaces, since these surfaces all have an angle of 0°. Finally we can recombine all the detected surfaces to one big surface.
+
+With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis the process is fairly simple. We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively. These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. We do this to cover the whole surface with the starting points of thestreamlines.
+
+\section{Meshing}
+Meshing with Gmsh is fairly easy. On default gmsh selects between three 2D algorithms and two 3D algorithms.
+The automatic algorithm selection tries to select the most apropriate for the given structure.
+For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm. Every one of them has different uses. According to Gmsh The "MeshAdapt" works best for very complex, curved surfaces. "Frontal" is the best choice, when high element quality is important. And "Delauny" is fastest for large meshes of plane Surfaces.
+As stated in the manual for Gmsh the automatic selection chooses "Delauny" for plane surface and "MeshAdapt" for all other surfaces. 
+For 3D algorithms there are "Delauny" and "Frontal". The “Delaunay” algorithm is the most robust and the fastest. However, this algorithm will sometimes modify the surface mesh, and is thus not suitable for producing hybrid structured/unstructured grids. In that case the “Frontal” algorithm should be preferred. As our mesh is only unstructured, the "Delauny" is our algorithm. The quality of the elements produced by both algorithms is comparable.
+For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\linewidth]{gridCompare.jpg}
+    \end{center}
+    \caption{Comparisson of structured and unstructured grids ~\cite{}}
+
+\end{figure}
+
+\section{Simulation}
+Our goal is to calculate streamlines, which according to ~\cite{} are close to 
+equal to muscle fascicles. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the Laplacian vector field. Therefore we need a simulation on fluid flow or Electrostatics. The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
+A homogeneous Neumann boundary condition is definded on the surface of the muscle to truncate the domain.\newline
+The Structure of the File is as Follows:
+
+\section{Streamlines}
+So now we use the earlier mentioned Plugin, which calculates Streamlines. The starting points of the Streamlines are on the upper surface of the biceps, which was calculated in the Reassembling section. The number of Streamlines can be calculated by multiplying the x- and y- coordinates from the mentioned surface. Afterwards instead of extracting the complete streamlines, we can only extract the stepwise vector data of the streamlines into a postprocessing file in our case this is called BicepsStreamline.pos.
+
+\section{Representation of Data}
+Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result.
