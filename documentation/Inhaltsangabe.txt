@@ -1,0 +1,20 @@
+-Abstract
+
+-Introduction
+	-related work
+
+-Methods
+	-Overview
+		-Flowchart
+		-Pipeline
+	-Drucken(?) (in Pipeline?)
+
+-Discussion
+	-"hoch auflösend"
+		-meshing Qualität/Granularität
+		-reclassify threshold
+		-Laufzeitkomplexität?
+			-Schätzungen
+			-Messungen
+
+-Conclusion
