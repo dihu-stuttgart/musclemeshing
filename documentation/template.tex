@@ -24,16 +24,9 @@
 \usepackage{mathptmx}
 \usepackage{graphicx}
 \usepackage{times}
-\usepackage{caption}
 \usepackage{color}
 \usepackage{bm}
 \usepackage{amsmath}
-\usepackage{microtype}
-\usepackage[normalem]{ulem}
-\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} #1}}
-
-\captionsetup[table]{justification=justified,singlelinecheck=false}
-\captionsetup[figure]{justification=justified,singlelinecheck=false}
 
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
@@ -44,21 +37,15 @@
 
 %% Paper title.
 
-\title{ProjINF for fun and profit}
+\title{Muscular fascicle arrangement based on Laplacian vector fields}
 
 %% This is how authors are specified in the journal style
 
 %% indicate IEEE Member or Student Member in form indicated below
-\author{Hugo Schmid$^\dag$, Heinz M\"uller$^\ddag$, and Martin Maier$^*$}
+\author{Jan Kusterer, Niven Ratnamaheson, Raimund Rolfs, and Tobias Walter}
 \authorfooter{
 %% insert punctuation at end of each item
-\begin{tabular}{ccc}
- $^\dag$ Hugo Schmid & $^\ddag$Heinz M\"uller & $^*$Martin Maier \\
- h.schmid@gmx.de     & h.mueller@gmx.de       & m.maier@gmx.de
-%% Warning: The final version of the paper will be published on the
-%% web. If you don't want to see your private mail adress on the web,
-%% use your studi address.
-\end{tabular}
+
 }
 
 %other entries to be set up for journal
@@ -66,12 +53,11 @@
 
 %% Abstract section.
 \abstract{
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 } % end of abstract
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
 %% please capitalize first letter and insert punctuation after last keyword
-\keywords{Visualization in Physical Sciences and Engineering, Glyph-based Techniques, Time-varying Data, Point-Based Data.}
+\keywords{muscle, fascicle, mesh, Laplacce, electrostatic, streamline}
 
 %% ACM Computing Classification System (CCS).
 %% See <http://www.acm.org/class/1998/> for details.
@@ -111,81 +97,59 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 %
 %\todo{Cite some stuff: bullshit~\cite{lipsa2011visualization} and simulation~\cite{hocker:084707}.}
 %
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\section{Reassembling}
+The stl-file doesn't connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than 0°. This excludes the two cut surfaces, since these surfaces all have an angle of 0°. Finally we can recombine all the detected surfaces to one big surface.
 
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis the process is fairly simple. We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively. These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. We do this to cover the whole surface with the starting points of thestreamlines.(bearbeitet)
 
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
-
-%-------------------------------------------------------------------------
-\section{Related Work}\label{sec:relatedWork}
-
+\section{Meshing}
+Meshing with Gmsh is fairly easy. On default gmsh selects between three 2D algorithms and two 3D algorithms.
+The automatic algorithm selection tries to select the most apropriate for the given structure.
+For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm. Every one of them has different uses. According to Gmsh The "MeshAdapt" works best for very complex, curved surfaces. "Frontal" is the best choice, when high element quality is important. And "Delauny" is fastest for large meshes of plane Surfaces.
+As stated in the manual for Gmsh the automatic selection chooses "Delauny" for plane surface and "MeshAdapt" for all other surfaces. 
+For 3D algorithms there are "Delauny" and "Frontal". The “Delaunay” algorithm is the most robust and the fastest. However, this algorithm will sometimes modify the surface mesh, and is thus not suitable for producing hybrid structured/unstructured grids. In that case the “Frontal” algorithm should be preferred. As our mesh is only unstructured, the "Delauny" is our algorithm. The quality of the elements produced by both algorithms is comparable.
+For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
 \begin{figure}
-  \begin{center}
-  \includegraphics[width=.45\linewidth]{Lorem_Ipsum_Helvetica.png}
-  \end{center}
-  \caption{\label{fig:lorem} lorem ipsum rasterized plus a longish caption spanning two lines}
+	\begin{center}
+		\includegraphics[width=\linewidth]{gridCompare.jpg}
+	\end{center}
+	\caption{Comparisson of structured and unstructured grids ~\cite{}}
+	
 \end{figure}
+%-------------------------------------------------------------------------
+\section{Simulation}
+Our goal is to calculate streamlines, which according to ~\cite{choi2013} are close to 
+equal to muscle fascicles. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the Laplacian vector field. Therefore we need a simulation on fluid flow or Electrostatics. The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
+A homogeneous Neumann boundary condition is definded on the surface of the muscle to truncate the domain.\newline
+The Structure of the File is as Follows:
+\begin{description}
+	\item[Group]
+	start by giving meaningful names to physical regions defined in the mesh file.
+	We only use the Regions Body, Electrode and Ground. After that we define abstract regions, that are used below.
+	\item[Function]
+	Here we define Material laws.
+	\item[Constraint]
+	The Dirichlet boundary condtition is defined piecewise. The constraint "Dirichlet\_Ele" is invoked later in the FunctionSpace.
+	\item[Group]
+	This is the domain definition of The FunctionSpace, which lists al regions on wich a field is defined. The Domain contains both the Volume and the Surface of the muscle.
+	\item[FunctionSpace]
+	The functionSpace is used to pick the electric scalar potential. The solution is defined  by:\newline
+	-the domain defenition\newline
+	-a type\newline
+	-a set of basis functions\newline
+	-a set of entities to wich the basis functions are associated (here all the nodes of the domain)\newline
+	-a constraint (here the Dirichlet boundary conditions)\newline
+	\item[Jacobian]
+	
+\end{description}
+\section{Streamlines}
+So now we use the earlier mentioned Plugin, which calculates Streamlines. The starting points of the Streamlines are on the upper surface of the biceps, which was calculated in the Reassembling section. The number of Streamlines can be calculated by multiplying the x- and y- coordinates from the mentioned surface. Afterwards instead of extracting the complete streamlines, we can only extract the stepwise vector data of the streamlines into a postprocessing file in our case this is called BicepsStreamline.pos.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt (see figure~\ref{fig:lorem}) ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse~\cite{Kindlmann1999}.
-
-\subsection{Lorem}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-\subsubsection{Ipsum}
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie (see table~\ref{tab:perf}) consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-\subsubsection{Dolor}
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse.
-
-\begin{table}
-\caption{
-\label{tab:perf} lorem ipsum tabulated}
-\centering
-\vspace{0.3em}
-\begin{tabular}{lrr}
-dataset & full performance (fps) & half performance (ms)\\ \hline\\[-0.4em]
-balls & 1,243 & 0.1 \\
-buckets & 23 & 23 \\
-bolts & 23,312,134.3 & 22.1 \\
-\end{tabular}
-\end{table}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
-
-\subsection{Lorem}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-\subsection{Ipsum}
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie (see table~\ref{tab:perf}) consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-\subsection{Lorem}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-\subsection{Ipsum}
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie (see table~\ref{tab:perf}) consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-
-\subsection{Lorem}
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-\subsection{Ipsum}
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie (see table~\ref{tab:perf}) consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. fi tf ft.
-
+\section{Representation of Data}
+Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result.
 %% if specified like this the section will be ommitted in review mode
 \acknowledgments{
-This work was partially funded by cake and cookies.
+This work was partially funded by cake and coffee.
 }
 
 \bibliographystyle{abbrv}
