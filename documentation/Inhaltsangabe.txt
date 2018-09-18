@@ -1,20 +1,20 @@
 -Abstract
 
--Introduction
+-Introduction (Jan)
 	-related work
 
 -Methods
 	-Overview
-		-Flowchart
-		-Pipeline
+		-Flowchart (Raimund)
+		-Pipeline (Dobby)
 	-Drucken(?) (in Pipeline?)
 
 -Discussion
-	-"hoch auflˆsend"
-		-meshing Qualit‰t/Granularit‰t
+	-"hoch aufl√∂send"
+		-meshing Qualit√§t/Granularit√§t
 		-reclassify threshold
-		-Laufzeitkomplexit‰t?
-			-Sch‰tzungen
+		-Laufzeitkomplexit√§t?
+			-Sch√§tzungen
 			-Messungen
 
 -Conclusion
