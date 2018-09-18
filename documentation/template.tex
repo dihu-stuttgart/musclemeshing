@@ -72,35 +72,95 @@
 \graphicspath{{pics/}}
 
 %% Uncomment below to include a teaser figure.
-%\teaser{
-%\centering
-%\includegraphics[width=12cm]{teaser}
-%\caption{blah
-%}\label{fig:teaser}
-%}
+\teaser{
+\centering
+\includegraphics[width=12cm]{triceps.png}
+\label{fig:teaser}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% START OF THE PAPER %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-
+\maketitle
 %% The ``\maketitle'' command must be the first command after the
 %% ``\begin{document}'' command. It prepares and prints the title block.
 
 %% the only exception to this rule is the \firstsection command
-\firstsection{Introduction}\label{sec:intro}
-%
-\maketitle
+\section{Introduction}\label{sec:intro}
+Skeletal muscles have a wide range of anatomical architectures. They often form a heterogenous curvature, while the tendon and bone attachments vary in their morphology. Each muscle consists of multiple muscle fibers which can contract via Myosin motors \cite{Jiangcheng2015} and thus create a force pulling on the bones. These fibers are not long enough to spread across the whole muscle, so they are grouped in paralleled bundles called fascicles. 
+According to \cite{Etemadi.et.Al.} he biceps of an athletic individuals has around 300.000 muscle fibers.  Since the mechanical force is transmitted along the muscle fibers, it is important for biomechanical simulations to obtain an adequate representation of their trajectories. This way we can get a much more realistic geometries e.g. of a contracted biceps. However, this is not a simple task because of the complexity and diversity of the various muscles. To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber. 
+To simulate the contraction of a muscle we need an approximation of the fascicles, that stretch across the muscle. Although we can see them with our bare eyes, it is not possible to determine their pathway using an ordinary CT-scan. 
+Therefore, we need a method to calculate the stream of these fascicles. Muscles are often modelled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. However, as Choi and Blemker stated, these models are not able to cover three-dimensional deformations.
+One of the more promising approach was using a Laplacian vector field as presented in \cite{Choi2013}.
+
 %
 %% \section{Introduction} %for journal use above \firstsection{..} instead
 %
 %\todo{Cite some stuff: bullshit~\cite{lipsa2011visualization} and simulation~\cite{hocker:084707}.}
 %
-\section{Reassembling}
-The stl-file doesn't connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than 0°. This excludes the two cut surfaces, since these surfaces all have an angle of 0°. Finally we can recombine all the detected surfaces to one big surface.
+\section{Methods}
+The first step of calculation of the streamlines based on a CT-Scan of the muscle, using gmsh is to repair the stl file. Small holes in the surface would make it impossible for gmsh to mesh the volume. Most of the mesh processing tools (eg. Meshlab, Blender, Microsoft 3D Builder) feature a repair function. 
 
-With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis the process is fairly simple. We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively. These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. We do this to cover the whole surface with the starting points of thestreamlines.(bearbeitet)
+Since our pipeline is not suited to compute the streamlines for a biceps with a fork included, we need to cut the 3D-model just below the fork and some part from the opposite side. As a nice side-effect we get a better distribution of the streamlines in the center part of the muscle.
+
+The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a 
+volume in which we can compute the streamlines. To connect all the small surfaces, we reclassify the mesh with a threshold of 0.
+This runs a edge-detection for all triangles with an angle to its neighbour greater than 0 (so basically every neighbour) and we can connect all the 
+detected surfaces to one big surface.
+
+The reclassified muscle can then be reassambled within a gmsh specific script file. Another step here is to detect the inflow and outflow surfaces for later steps. A python programm is used for this detection. 
+
+3D-Meshing the volume is done completely by gmsh.
+ 
+As stated by Choi and Blemker~\cite{Choi2013}, a Laplacian vector field yields reasonable results when simulating fascicle arrangement. Thats why we use a simulation of an electronic field. GetDP the solver, used by gmsh, calculates the vectors  inside the mesh of the biceps.
+
+To create the streamlines, we apply the streamlines-plugin on the vector-view. We than have decent streamlines in the biceps brachii.
+
+With help of another Python script we extract the streamlines from the postprocessing file and write them in a new geo file. Merging this file with the original biceps surface displays their arrangement.
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=.7\linewidth]{flow.png}
+	\end{center}
+	\caption{Flowchart of our Pipeline}
+	\label{fig:flow}
+	
+\end{figure}
+\section{Preparations}
+As we start from a CT-scan we first need to check whether the Volume is complete and closed. We discovered little holes in the Surface, as seen  in Figure \ref{fig:holes}, when we tried to Mesh the Volume, which caused gmsh to shut down. Therefore we used a Repair feature which most of the common 3D modelling tools share. 
+The Biceps, as the name indicates has two heads. For easier computation and better outcome of the streamlines, we cut  the muscle horizontal just below the fork and below the main volume. 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width = .6\linewidth]{holes.png}
+	\end{center}
+	\caption{Holes in the forked area of the biceps, which need to be closed. The inside of the biceps is colored red for better contrast.}
+	\label{fig:holes}
+\end{figure}
+
+\section{Reassembling}
+The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than 0°. This excludes the two cut surfaces, since these surfaces all have an angle of 0°. The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. Finally we can recombine all the detected surfaces to one big surface. The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. The basic operations done in the script are the following:
+
+\begin{verbatim}
+//declare ss as surface
+ss[] = Surface {:};
+//combine the surfaces
+Compound Surface{ss[]};
+//create a surface loop
+Surface Loop(10000) = {ss[]};
+//define the volume inside the loop
+Volume(100) = {10000};
+//physical entities are needed for simulation
+Physical Surface (100) = {ss[]};
+Physical Volume ("Body",10) = 100;
+//meshing 3D when executing script
+Mesh 3;
+//disable Automatic Remeshing
+Solver.AutoMesh = 0;
+\end{verbatim}
+
+With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis the process is fairly simple. We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively. These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. We do this to cover the whole surface with the starting points of the streamlines.
 
 \section{Meshing}
 Meshing with Gmsh is fairly easy. On default gmsh selects between three 2D algorithms and two 3D algorithms.
@@ -109,18 +169,18 @@ For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm. 
 As stated in the manual for Gmsh the automatic selection chooses "Delauny" for plane surface and "MeshAdapt" for all other surfaces. 
 For 3D algorithms there are "Delauny" and "Frontal". The “Delaunay” algorithm is the most robust and the fastest. However, this algorithm will sometimes modify the surface mesh, and is thus not suitable for producing hybrid structured/unstructured grids. In that case the “Frontal” algorithm should be preferred. As our mesh is only unstructured, the "Delauny" is our algorithm. The quality of the elements produced by both algorithms is comparable.
 For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=\linewidth]{gridCompare.jpg}
-	\end{center}
-	\caption{Comparisson of structured and unstructured grids ~\cite{}}
-	
-\end{figure}
+%\begin{figure}
+%	\begin{center}
+%		\includegraphics[width=\linewidth]{gridCompare.jpg}
+%	\end{center}
+%	\caption{Comparisson of structured and unstructured grids ~\cite{}}
+%	
+%\end{figure}
 %-------------------------------------------------------------------------
 \section{Simulation}
-Our goal is to calculate streamlines, which according to ~\cite{choi2013} are close to 
-equal to muscle fascicles. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the Laplacian vector field. Therefore we need a simulation on fluid flow or Electrostatics. The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
+Our goal is to calculate streamlines, which according to ~\cite{choi2013} fairly close to the muscular fascicle arangement. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the Laplacian vector field. Therefore we need a simulation on fluid flow or Electrostatics. The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
 A homogeneous Neumann boundary condition is definded on the surface of the muscle to truncate the domain.\newline
+We Based our Problem definition on the Tutorial for electrostatics. ~\cite{Geuzaine2009}
 The Structure of the File is as Follows:
 \begin{description}
 	\item[Group]
@@ -140,8 +200,35 @@ The Structure of the File is as Follows:
 	-a set of entities to wich the basis functions are associated (here all the nodes of the domain)\newline
 	-a constraint (here the Dirichlet boundary conditions)\newline
 	\item[Jacobian]
-	
-\end{description}
+	Jacobians are used for specifying the mapping of elements in the mesh.
+	"Vol" represents the classical 1-to-1 mapping for identical dimension whereas
+	"sur" represents the mapping between 2D and 3D and "lin" is used to map line segments to segments in three dimensional space.
+	\item[Integration]
+	The "Integration" segment specifies how many points are used for the Gauss quadrature rules.
+	\item[Formulation]
+	A GetDP formulation encodes a weak formulation of the partial differential equation. i.e. 
+	${-div}*(\varepsilon *grad{(v)}) = 0$
+	In our simulation we are looking for functions v such that 
+	$({\epsilon * grad {(v)}, grad {(v')}}) \_Vol\_Ele =  0$
+	holds for all v'.
+	The "Integral" statement in the Formulation is a representation of this weak formulation. It features four seperated arguements:
+	-the density\newline
+	-the domain of integration, \newline
+	-the Jacobian of the transformation, \newline
+	-the integration method to be used.\newline
+	\item[Resolution]
+	In the Resolution it is specified what to do with the weak formulation. We simply generate a linear system, solve it and save the solution.
+	\item[Post Processing]
+	There are two parts of postprocessing available in getDP. First we can evaluate the outcome of the formulation. Here we the quantities are the scalar electric potetial, the electric field and the electric displacement.
+	The second part are postprocessing operations. In our case the Streamline generation is done here. The Script, which detects the inflow and outflow surfaces writes the X/Y/Z values here so that we get a good coverage of starting points for our streamlines. The Operation is then run and the output saved to a postprocessing file (.pos).
+	\end{description}
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=.7\linewidth]{Sim.png}
+	\end{center}
+	\caption{The cut Biceps after the simulation. The colors show the Distance from the inflow based on the vector field.}
+	\label{fig:sim}
+\end{figure}
 \section{Streamlines}
 So now we use the earlier mentioned Plugin, which calculates Streamlines. The starting points of the Streamlines are on the upper surface of the biceps, which was calculated in the Reassembling section. The number of Streamlines can be calculated by multiplying the x- and y- coordinates from the mentioned surface. Afterwards instead of extracting the complete streamlines, we can only extract the stepwise vector data of the streamlines into a postprocessing file in our case this is called BicepsStreamline.pos.
 
@@ -149,7 +236,7 @@ So now we use the earlier mentioned Plugin, which calculates Streamlines. The st
 Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result.
 %% if specified like this the section will be ommitted in review mode
 \acknowledgments{
-This work was partially funded by cake and coffee.
+This work was mostly funded by cake and caffein.
 }
 
 \bibliographystyle{abbrv}

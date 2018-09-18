@@ -1,0 +1,11 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: template.aux
+Case mismatch error between cite keys choi2013 and Choi2013
+---line 12 of file template.aux
+ : \citation{choi2013
+ :                   }
+I'm skipping whatever remains of this command
+The style file: abbrv.bst
+Database file #1: template.bib
+Warning--empty year in Etemadi.et.Al.
+Warning--empty year in Geuzaine2009
+(There was 1 error message)

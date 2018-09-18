@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{Jiangcheng2015}
+J.~Chen, X.~Zhang, and H.~Wang.
+\newblock Research on biomechanical model of muscle fiber based on four-state
+  operating mechanism of molecular motors.
+\newblock In {\em 10th IEEE International Conference on Nano/Micro Engineered
+  and Molecular Systems}, pages 529--532, April 2015.
+
+\bibitem{Choi2013}
+H.~F. Choi and S.~S. Blemker.
+\newblock Skeletal muscle fascicle arrangements can be reconstructed using a
+  laplacian vector field simulation.
+\newblock {\em PLOS ONE}, 8:1--7, 10 2013.
+
+\bibitem{Etemadi.et.Al.}
+A.~A. Etemadi and F.~Hosseini.
+\newblock Frequency and size of muscle fibers in athletic body build.
+\newblock {\em The Anatomical Record}, 162(3):269--273.
+
+\bibitem{Geuzaine2009}
+C.~Geuzaine and J.-F. Remacle.
+\newblock Gmsh: A 3-d finite element mesh generator with built-in pre- and
+  post-processing facilities.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  79(11):1309--1331.
+
+\end{thebibliography}
