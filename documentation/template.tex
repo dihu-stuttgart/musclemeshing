@@ -89,11 +89,13 @@
 
 %% the only exception to this rule is the \firstsection command
 \section{Introduction}\label{sec:intro}
-Skeletal muscles have a wide range of anatomical architectures. They often form a heterogenous curvature, while the tendon and bone attachments vary in their morphology. Each muscle consists of multiple muscle fibers which can contract via Myosin motors \cite{Jiangcheng2015} and thus create a force pulling on the bones. These fibers are not long enough to spread across the whole muscle, so they are grouped in paralleled bundles called fascicles. 
-According to \cite{Etemadi.et.Al.} he biceps of an athletic individuals has around 300.000 muscle fibers.  Since the mechanical force is transmitted along the muscle fibers, it is important for biomechanical simulations to obtain an adequate representation of their trajectories. This way we can get a much more realistic geometries e.g. of a contracted biceps. However, this is not a simple task because of the complexity and diversity of the various muscles. To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber. 
+Skeletal muscles have a wide range of anatomical architectures. They often form a heterogenous curvature, while the tendon and bone attachments vary in their morphology~\cite{Choi2013}. Each muscle consists of multiple muscle fibers which can contract via Myosin motors \cite{Jiangcheng2015} and thus create a force pulling on the bones. These fibers are not long enough to spread across the whole muscle, so they are grouped in paralleled bundles called fascicles. 
+According to \cite{Etemadi.et.Al.} the biceps of an athletic individuals has around 300.000 muscle fibers, which are single cells approximately 50μm in diameter and several centimetres long \cite{Cooper2000}. Each fiber has a thick myosin filament and a thin actin filament, which surrounds the myosin. During the process of muscle contraction, the actin and myosin filaments slide past each other resulting in shortening of the fiber.
+Since the mechanical force is transmitted along the muscle fibers, it is important for biomechanical simulations to obtain an adequate representation of their trajectories. This way we can get much more realistic geometries e.g. of a contracted biceps. However, this is not a simple task because of the complexity and diversity of the various muscles. To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber.
 To simulate the contraction of a muscle we need an approximation of the fascicles, that stretch across the muscle. Although we can see them with our bare eyes, it is not possible to determine their pathway using an ordinary CT-scan. 
 Therefore, we need a method to calculate the stream of these fascicles. Muscles are often modelled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. However, as Choi and Blemker stated, these models are not able to cover three-dimensional deformations.
-One of the more promising approach was using a Laplacian vector field as presented in \cite{Choi2013}.
+One of the more promising approach was using a Laplacian vector field as presented in \cite{Choi2013}. 
+The goal of our work is the approximation of Muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. Gmsh ~\cite{Geuzaine2009} is a tool for generating 3-D finite element meshes with built in pre- and post processing. We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros. We use these features, because they match our needs for Meshing, Simulation and analysis of the Model. It can be compiled without the GUI, directly from the command line. For other manipulations and computations we use Python.
 
 %
 %% \section{Introduction} %for journal use above \firstsection{..} instead
@@ -178,7 +180,9 @@ For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
 %\end{figure}
 %-------------------------------------------------------------------------
 \section{Simulation}
-Our goal is to calculate streamlines, which according to ~\cite{choi2013} fairly close to the muscular fascicle arangement. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the Laplacian vector field. Therefore we need a simulation on fluid flow or Electrostatics. The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
+Our goal is to calculate streamlines of laplacian vector fields, which according to~\cite{Choi2013} are fairly close to the muscular fascicle arangement. Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the vector field. Therefore we need a simulation on fluid flow, Electrostatics or similar. We tried out both thermodynamic and electrostatic simulation. In figure ~\ref{fig:L} we see the unsatisfying results we earned using the thermodynamic approach. At the corner of the L-figure there are streamlines leaving the Model. The result of the electrostatic simulation is spread evenly and has fewer whirls. It has a overall better coverage of the model.
+
+The Laplace equation can be used in 3D just as in 2D. getDP's problem definition files (.pro) are used to descripe the models for simulation. In this model we consider the calculation of the electric field given a static distribution of electric potentiol. This matches to an "electrostatic" physical model. On the one End of the Muscle we have a conducting surface on top of a dielectric Volume, called "Body". A Dirichlet boundary sets the potential on the boundary of the conducting surface , called "Electrode", to 10 mV and to 0 V on the other end of the Muscle, called "Ground".
 A homogeneous Neumann boundary condition is definded on the surface of the muscle to truncate the domain.\newline
 We Based our Problem definition on the Tutorial for electrostatics. ~\cite{Geuzaine2009}
 The Structure of the File is as Follows:
@@ -223,6 +227,16 @@ The Structure of the File is as Follows:
 	The second part are postprocessing operations. In our case the Streamline generation is done here. The Script, which detects the inflow and outflow surfaces writes the X/Y/Z values here so that we get a good coverage of starting points for our streamlines. The Operation is then run and the output saved to a postprocessing file (.pos).
 	\end{description}
 \begin{figure}
+	
+	\begin{minipage}{\linewidth}
+		\includegraphics[width=.5\linewidth]{L.jpg}
+		\includegraphics[width=.53\linewidth]{L-ele.png}
+		\caption{Comparison of thermodynamic (left) and electrostatic (right) calculation.}
+		\label{fig:L}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
 	\begin{center}
 		\includegraphics[width=.7\linewidth]{Sim.png}
 	\end{center}
@@ -230,13 +244,25 @@ The Structure of the File is as Follows:
 	\label{fig:sim}
 \end{figure}
 \section{Streamlines}
-So now we use the earlier mentioned Plugin, which calculates Streamlines. The starting points of the Streamlines are on the upper surface of the biceps, which was calculated in the Reassembling section. The number of Streamlines can be calculated by multiplying the x- and y- coordinates from the mentioned surface. Afterwards instead of extracting the complete streamlines, we can only extract the stepwise vector data of the streamlines into a postprocessing file in our case this is called BicepsStreamline.pos.
+So now we use the earlier mentioned Plugin within the post processing described above, which calculates Streamlines. The starting points of the Streamlines are on the upper surface of the biceps, which was calculated in the Reassembling section. The number of Streamlines can be set when executing the Pipeline. The parameters are given as number of points on the X- and Y- axis. The extends of the surface, are the Minimal an Maximal X and Y values. Thats why not all of the Streamlines will start inside of the Muscle. Additionally we can set the number of steps we want to execute  and the length of a step. The speed of the streamlines depends on the potential at the point of calculation at that timestep.  Afterwards instead of extracting the complete streamlines, we can only extract the stepwise vector data of the streamlines into a postprocessing file in our case this is called MuscleStreamline.pos.
 
 \section{Representation of Data}
-Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result.
+Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result. However there are Multiple uses of how to represent the streamlines. Another visualization is 3D-printing the streamlines.
+
+\section{Printing}
+In preparation for Printing the Streamlines must get some volume. For this step a python script creates points along the streamlines at the wanted radius. The points are then connected and Meshed. As of shape we choose a simple hexagonal profile. After volume is created all of the streamlines are combined into one stl file. Streamlines that lay outside of the Biceps will get erased in this step, because they will not have any points in the file. The muscle fibres are substracted off of the full biceps using blender in order to have a hollowed out model with space for the fibres. 
+The 3D-Printer we use is the Ultimaker 3 extended it has two extruders so we can print with two different materials or colours. The software used to pepare printing is Cura. We tried printing with a clear material but we didnt get a result, wich allowed the inner setup to be visible. We came up with another solution which is:-.
+In Cura the hollowed out muscle and the fibres are merged together and colours and materials are set.
+
+\section{Conclusion}
+
+
+\section{Future work}
+-alignment of 3D fascicles with "real thickness"
 %% if specified like this the section will be ommitted in review mode
 \acknowledgments{
-This work was mostly funded by cake and caffein.
+This work was mostly funded by cake and caffein. 
+
 }
 
 \bibliographystyle{abbrv}
