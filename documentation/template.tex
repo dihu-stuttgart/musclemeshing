@@ -254,6 +254,11 @@ In preparation for Printing the Streamlines must get some volume. For this step 
 The 3D-Printer we use is the Ultimaker 3 extended it has two extruders so we can print with two different materials or colours. The software used to pepare printing is Cura. We tried printing with a clear material but we didnt get a result, wich allowed the inner setup to be visible. We came up with another solution which is:-.
 In Cura the hollowed out muscle and the fibres are merged together and colours and materials are set.
 
+\section{Discussion}
+When working with meshes the level of detail plays a key role. The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. As far as refining by splitting goes, we managed to refine the mesh up to two times. More splitting was not possible due to Gmsh crashing. This increases the amount of nodes by the power of four. When calculating in the refined setup the streamlines pass way more edges of the thetraeda inside the muscle and as a consequence get a correction in terms of direction and force. As a result we recieve smoother streamlines, which cover more space. This is to be seen in figure ~\ref{fig:refStreamlines}.
+
+Reclassifying the Mesh is done by hand. Gmsh does not allow reclassifying a mesh by command line with parameters. For our Model it is critical to set the threshold to zero. This is because Gmsh would see the surface of the muscle as one, when a higher threshold was chosen.
+
 \section{Conclusion}
 
 
