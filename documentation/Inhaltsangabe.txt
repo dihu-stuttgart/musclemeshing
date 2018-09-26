@@ -18,3 +18,11 @@
 			-Messungen
 
 -Conclusion
+
+ToDo:
+-Introduction fortführen
+-discussion 
+     -reclassify threshold
+     -Auswirkung von abändern der mesh granularität
+     -Laufzeitkomplexität 
+     
