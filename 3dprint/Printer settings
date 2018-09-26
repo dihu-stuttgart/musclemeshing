@@ -1,0 +1,12 @@
+Clear PETG:
+     -print core AA 0.4
+     -material flow 110%
+     -material: ulti-cpe-transparent
+     -240°
+     -70° bed
+     -fanspeed 50%
+     
+Red PLA:
+     -Print core AA 0.2
+     -material: ulti-pla-red
+     -fanspeed 50%
