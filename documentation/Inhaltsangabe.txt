@@ -25,4 +25,13 @@ ToDo:
      -reclassify threshold
      -Auswirkung von abändern der mesh granularität
      -Laufzeitkomplexität 
-     
+     -Laplace erklären (methods oder introduction 
+     -introduction sacromer dsrf genannt werden 
+     -Kapitel für flowchart 
+     -schreiben für Leser, die keinen Plan haben 
+     -thermodynamic erklären, bzw Unterschied zwischen Thermo und elektro
+     -functions: in Bsp erklären 
+     -Formel als Formel schreiben (integral klären) 
+     -Korrekturlesen bzgl Formulierung 
+     -Bild zu Titel (also insgesamt 2)
+     -
