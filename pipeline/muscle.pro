@@ -117,7 +117,7 @@ PostOperation {
  Operation {
 Print [ v, OnElementsOf Vol_Ele, File "muscle.pos" ];
        Print [ e, OnElementsOf Vol_Ele, File "muscle.pos" ];
-Echo [Str["Plugin(StreamLines).X0=92.4812164307;","Plugin(StreamLines).Y0=170.08706665;", "Plugin(StreamLines).Z0=244.950408936;","Plugin(StreamLines).X1=118.713317871;","Plugin(StreamLines).Y1=170.08706665;","Plugin(StreamLines).Z1=244.950408936;","Plugin(StreamLines).X2=92.4812164307;","Plugin(StreamLines).Y2=194.117019653;","Plugin(StreamLines).Z2=244.950408936;","Plugin(StreamLines).NumPointsU = 5;","Plugin(StreamLines).NumPointsV =5;","Plugin(StreamLines).MaxIter = 300;","Plugin(StreamLines).DT = 0.3;"],File>> "muscle.pos"];
+Echo [Str["Plugin(StreamLines).X0=92.4812164307;","Plugin(StreamLines).Y0=170.08706665;", "Plugin(StreamLines).Z0=244.950408936;","Plugin(StreamLines).X1=118.713317871;","Plugin(StreamLines).Y1=170.08706665;","Plugin(StreamLines).Z1=244.950408936;","Plugin(StreamLines).X2=92.4812164307;","Plugin(StreamLines).Y2=194.117019653;","Plugin(StreamLines).Z2=244.950408936;","Plugin(StreamLines).NumPointsU = 7;","Plugin(StreamLines).NumPointsV =7;","Plugin(StreamLines).MaxIter = 300;","Plugin(StreamLines).DT = 0.3;"],File>> "muscle.pos"];
 Echo["Plugin(StreamLines).Run;",File>>"muscle.pos"];
 Echo["Save View[4] 'muscleStreamline.pos';",File>>"muscle.pos"];
 }
