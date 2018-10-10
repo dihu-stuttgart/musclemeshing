@@ -1,0 +1,304 @@
+%----------------------------------------------------------------------------------------
+%	Corporate Design 2016 Poster
+%----------------------------------------------------------------------------------------
+%	Last update 17.11.2016 by Mirco Altenbernd.
+%
+%	For questions or Bug-Reports
+%	mailto: mirco.altenbernd@ians.uni-stuttgart.de
+%
+%----------------------------------------------------------------------------------------
+\NeedsTeXFormat {LaTeX2e}%
+\ProvidesPackage{beamerthemeCDP}
+
+%----------------------------------------------------------------------------------------
+%||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+%----------------------------------------------------------------------------------------
+% OPTIONS
+%----------------------------------------------------------------------------------------
+
+\newif\if@simtech
+\@simtechfalse
+
+\newif\if@german
+\@germanfalse
+
+\newif\if@subtext
+\@subtextfalse
+
+\newif\if@footer
+\@footerfalse
+
+\newif\if@compactbib
+\@compactbibfalse
+
+\newcommand{\scale}{}
+%----------------------------------------------------------------------------------------
+\DeclareOption{german}{\@germantrue}
+\DeclareOption{simtech}{\@simtechtrue}
+\DeclareOption{compactbib}{\@compactbibtrue}
+\DeclareOption{a0}{\PassOptionsToPackage{size=a0}{beamerposter}\renewcommand\scale{0.402}}
+\DeclareOption{a1}{\PassOptionsToPackage{size=a1}{beamerposter}\renewcommand\scale{0.405}}
+\DeclareOption{a2}{\PassOptionsToPackage{size=a2}{beamerposter}\renewcommand\scale{0.408}}
+\DeclareOption{a3}{\PassOptionsToPackage{size=a3}{beamerposter}\renewcommand\scale{0.413}}
+\DeclareOption{a4}{\PassOptionsToPackage{size=a4}{beamerposter}\renewcommand\scale{0.420}}
+%----------------------------------------------------------------------------------------
+\ProcessOptions\relax
+\RequirePackage[orientation=portrait]{beamerposter}
+
+%----------------------------------------------------------------------------------------
+%||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+%----------------------------------------------------------------------------------------
+%	IMPORT
+%----------------------------------------------------------------------------------------
+%		Graphic
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{epstopdf}
+
+%----------------------------------------------------------------------------------------
+%		Text
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+%----------------------------------------------------------------------------------------
+%||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+%----------------------------------------------------------------------------------------
+%	SETTINGS
+%----------------------------------------------------------------------------------------
+%		Colors and Text
+%----------------------------------------------------------------------------------------
+
+\definecolor{CD00}{cmyk}{ 0.00, 0.00, 0.00, 0.00} %white
+\definecolor{CD01}{cmyk}{ 0.50, 0.35, 0.25, 0.70} %anthrazit
+\definecolor{CD02}{cmyk}{ 1.00, 0.70, 0.00, 0.00} %mid-blue
+\definecolor{CD03}{cmyk}{ 0.70, 0.00, 0.00, 0.00} %light-blue
+\definecolor{CD04}{cmyk}{ 0.00, 0.00, 0.00, 0.60} %light-grey
+
+% setting text colors to CD01
+\AtBeginDocument{\color{CD01}\large}
+\setbeamerfont{caption name}{series=\normalsize\bfseries}
+\setbeamercolor{caption name}{fg=CD01}
+\setbeamerfont{caption}{series=\normalsize}
+\setbeamercolor{caption}{fg=CD01}
+
+%----------------------------------------------------------------------------------------
+%		Beamer
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{navigation symbols}{}
+
+%----------------------------------------------------------------------------------------
+%||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+%----------------------------------------------------------------------------------------
+%	FORMAT
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   Lengths
+%----------------------------------------------------------------------------------------
+
+\newlength{\colWidth}
+\setlength{\colWidth}{0.42\paperwidth}
+\newlength{\colCWidth}
+\setlength{\colCWidth}{\dimexpr(\scale\paperwidth)\relax}
+
+%----------------------------------------------------------------------------------------
+%		Content commands
+%----------------------------------------------------------------------------------------
+
+\newcommand\insertName{}
+\newcommand\insertTitle{}
+\newcommand\insertSubTitle{}
+\newcommand\insertInst{}
+\newcommand\insertLogoText{}
+\newcommand\insertFooter{}
+\newcommand{\unilogo}[1]{\includegraphics[width=#1]{logo_uni}}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%   User input commands
+%----------------------------------------------------------------------------------------
+
+\newcommand\setName[1]{\renewcommand\insertName{\textbf{\color{white}\Large{#1}}}}
+\newcommand\setTitle[1]{\renewcommand\insertTitle{\textbf{\color{white}\Huge{#1}}}}
+\newcommand\setSubTitle[1]{\renewcommand\insertSubTitle{\color{white}\huge{#1}}}
+\newcommand\setInst[1]{\renewcommand\insertInst{\color{CD01}\Large{#1}}}
+\newcommand\setLogoText[1]{\renewcommand\insertLogoText{\color{CD01}\Large{#1}}\@subtexttrue}
+\newcommand\setFooter[1]{\renewcommand\insertFooter{#1}\@footertrue}
+
+
+%----------------------------------------------------------------------------------------
+%   Positions
+%----------------------------------------------------------------------------------------
+
+\newlength{\LogoTextX}
+\setlength{\LogoTextX}{-0.208\paperwidth}
+
+%modifications for english version
+\if@german
+  %german date format
+  \usepackage[ngerman]{datetime}
+  \newdateformat{myformat}{\THEDAY{ten }\monthnamengerman[\THEMONTH], \THEYEAR}
+\else
+  \renewcommand{\unilogo}[1]{\includegraphics[width=#1]{logo_uni_english}}
+  \setlength{\LogoTextX}{-0.2118\paperwidth}
+\fi
+
+%----------------------------------------------------------------------------------------
+%		Header
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{headline}{
+\begin{columns}[T]
+
+\begin{column}{\colWidth}
+\vskip0.0414\paperheight\hspace*{0.0130\paperwidth}
+\begin{tikzpicture}
+	\node[anchor=north east] at (0,0.080\paperheight) {\unilogo{0.280\paperwidth}};
+  % overshadow "Germany" for english logo with individual subtext, may need a logo-version without subtext
+\if@subtext
+  \node[anchor=north west, align=left,fill=white, xshift=-0.01\paperwidth] at (-0.208\paperwidth,0.047\paperheight){\makebox[0.2\paperwidth]{\raisebox{0pt}[0.015\paperheight][0pt]{}}};
+  \node[anchor=north west, align=left] at (\LogoTextX,0.047\paperheight){\insertLogoText};
+\fi
+	\node[anchor=west, align=left] at (\LogoTextX,-0.02\paperheight){\parbox[][][l]{0.4\paperwidth}{\insertInst}};
+\end{tikzpicture}
+\end{column}
+
+\begin{column}{\colWidth}
+\vspace*{-0.45\paperheight}
+\begin{tikzpicture}
+\hspace*{-0.15\paperwidth}
+  \node[minimum size=0.8\paperwidth,circle, fill=CD02] at (0.00\paperwidth,0.00\paperheight) { %big circle
+  	\hspace*{-0.09\paperwidth}\parbox[][0.2\paperheight][c]{0.4\paperwidth}{\vspace*{0.43\paperheight}\centering{\insertTitle\\\vspace*{0.005\paperheight}\insertSubTitle}}
+  };
+  \node[minimum size=0.1\paperwidth, circle, fill=CD01] at (0.12\paperwidth,-0.28\paperheight) { %small circle
+  	\hspace*{0\paperwidth}\parbox[][0.05\paperheight][c]{0.09\paperwidth}{\vspace*{0\paperheight}\centering{\insertName}}
+  };
+\end{tikzpicture}
+\end{column}
+
+\end{columns}
+\vspace*{-0.04\paperheight}
+}
+
+%----------------------------------------------------------------------------------------
+%		Footer - for individual footer just copy the \setFooter part into your poster-file
+%----------------------------------------------------------------------------------------
+
+% \setFooter{
+% \begin{tikzpicture}[remember picture,overlay]
+%     %left aligned footer-content (image)
+%     \node[anchor=south west, align=left, yshift=0.01\paperwidth, xshift=0.066\paperwidth] at (current page.south west) {
+%       \includegraphics[height=0.035\paperheight]{logo_institute.pdf}
+%     };
+%     %center aligned footer-content (image)
+%     \node[anchor=south, align=center, yshift=0.01\paperwidth, xshift=0] at (current page.south) {
+%       % \includegraphics[height=0.035\paperheight]{logo_simtech.pdf}
+%     };
+%     %center aligned footer-content (text) - yshift may be modified for alignment
+%     \node[anchor=south, align=center, yshift=0.025\paperwidth, xshift=0] at (current page.south) {
+%       {\bfseries\large www.sfbtrr75.de}\\
+%       {\bfseries\large www.simtech.uni-stuttgart.de}
+%     };
+%     %right aligned footer-content (image)
+%     \node[anchor=south east, align=right, yshift=0.01\paperwidth, xshift=-0.066\paperwidth] at (current page.south east) {
+%       \includegraphics[height=0.035\paperheight]{logo_simtech.pdf}
+%     };
+% \end{tikzpicture}
+% }
+\setbeamertemplate{footline}{
+\if@footer
+  \insertFooter
+\else
+  \begin{tikzpicture}[remember picture,overlay]
+    %left aligned footer-content (image)
+    \node[anchor=south west, align=left, yshift=0.025\paperwidth, xshift=0.066\paperwidth] at (current page.south  west) {
+    \if@simtech
+      % \includegraphics[height=0.035\paperheight]{logo_institute.pdf}
+      {\bfseries\large www.simtech.uni-stuttgart.de}
+    \fi
+    };
+    %center aligned footer-content (image)
+    % \node[anchor=south, align=center, yshift=0.02\paperwidth, xshift=0] at (current page.south) {
+      % \includegraphics[height=0.035\paperheight]{logo_SimTech.pdf}
+    % };
+    %center aligned footer-content (text) - yshift may be modified for alignment
+    \node[anchor=south, align=center, yshift=0.025\paperwidth, xshift=0] at (current page.south) {
+      % {\bfseries\large www.sfbtrr75.de}\\
+      % {\bfseries\large www.simtech.uni-stuttgart.de}
+
+    };
+    %right aligned footer-content (image)
+    \node[anchor=south east, align=right, yshift=0.02\paperwidth, xshift=-0.066\paperwidth] at (current page.south east) {
+    \if@simtech
+      \includegraphics[height=0.035\paperheight]{logo_institute.pdf}
+      \includegraphics[height=0.035\paperheight,width=0.02\paperwidth]{space_white.pdf}
+      \includegraphics[height=0.035\paperheight]{logo_simtech.pdf}
+    \else
+      \includegraphics[height=0.035\paperheight]{logo_institute.pdf}
+    \fi
+    };
+  \end{tikzpicture}
+\fi
+}
+
+
+%----------------------------------------------------------------------------------------
+%		Sections and subsections
+%----------------------------------------------------------------------------------------
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1em}%
+                                   {\color{CD01}\Large\bfseries}}
+\renewcommand\subsection{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1em}%
+                                   {\color{CD01}\Large}}
+
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%   Bibliography Style
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{bibliography item}[text]{}
+\setbeamercolor{bibliography item}{fg=CD01}
+\setbeamercolor{bibliography entry author}{fg=CD02}
+\setbeamercolor{bibliography entry title}{fg=CD01}
+\setbeamercolor{bibliography entry location}{fg=CD04}
+\setbeamercolor{bibliography entry note}{fg=CD04}
+
+% no newlines in references:
+\if@compactbib
+  \setbeamertemplate{bibliography entry title}{}
+  \setbeamertemplate{bibliography entry location}{}
+  \setbeamertemplate{bibliography entry note}{}
+\fi
+
+\bibliographystyle{plain}
+
+
+%----------------------------------------------------------------------------------------
+%   Itemize and enumerate
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{itemize items} {\usebeamercolor[bg]{item projected} \tikz[baseline=-0.65ex]\draw[CD01,fill=CD01] (0,0) circle (.45ex) node {\color{CD01}\scriptsize\insertenumlabel};}
+\setbeamertemplate{enumerate items} {\usebeamercolor[bg]{item projected}\tikz[baseline=-0.65ex]\draw[CD01,fill=CD01] (0,0) circle (.75ex) node {\color{white}\scriptsize\bf\insertenumlabel};}
+\setbeamercolor{local structure}{fg=CD01}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{itemize/enumerate body begin}{\large\color{CD01}}
+\setbeamertemplate{itemize/enumerate subbody begin}{\large\color{CD01}}
+\setbeamertemplate{itemize/enumerate subsubbody begin}{\large\color{CD01}}
+
+\setlength{\leftmargini}{0.018\paperwidth}
+\setlength{\leftmarginii}{0.01\paperwidth}
+\setlength{\leftmarginiii}{0.01\paperwidth}

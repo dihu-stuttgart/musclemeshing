@@ -1,0 +1,179 @@
+%----------------------------------------------------------------------------------------
+%	Corporate Design 2016 Poster
+%----------------------------------------------------------------------------------------
+%   Last update 05.09.2017 by Reiner Dietz (mailto: reiner.dietz@simtech.uni-stuttgart.de)
+%	Last update 17.11.2016 by Mirco Altenbernd.
+%
+%	For questions or Bug-Reports
+%	mailto: mirco.altenbernd@ians.uni-stuttgart.de
+%
+%----------------------------------------------------------------------------------------
+\documentclass[final,hyperref={pdfpagelabels=false},table]{beamer}
+%----------------------------------------------------------------------------------------
+\usetheme[a0,simtech]{CDP} % Define DIN-size (available: a0, a1, a2, a3, a4) and other options: german, simtech, compactbib
+\usepackage[english]{babel}
+\usepackage{ragged2e}
+\usepackage{blindtext}
+\usepackage{amsmath}
+
+%----------------------------------------------------------------------------------------
+%   Helpful things and options
+%----------------------------------------------------------------------------------------
+
+% table settings and commands for a suiting table style
+\usepackage{xparse}
+\DeclareExpandableDocumentCommand{\BodyCell}{m}{\cellcolor{CD01!10} #1}
+\DeclareExpandableDocumentCommand{\HeadCell}{m}{\cellcolor{CD01} \color{white} \textbf{#1}}
+\makeatletter
+\def\arraystretch{1.1}
+\arrayrulecolor{white}
+\makeatother
+
+% numbered captions
+\setbeamertemplate{caption}[numbered]{}
+
+%----------------------------------------------------------------------------------------
+%   Title - Parameter
+%----------------------------------------------------------------------------------------
+
+% The Poster title
+\setTitle{I am a headline\\[10pt] with wordwrap}
+
+% The Poster subtitle
+\setSubTitle{SimTech}
+
+% Logo subtext (uncomment for Germany-Subtext with english logo)
+%\setLogoText{SimTech Cluster of Excellence}
+\setLogoText{Cluster of Excellence in Simulation Technology}
+
+% Institute information/address
+\setInst{Institut für Angewandte Analysis und Numerische Simulation\\[2pt]
+Pfaffenwaldring 57, D-70569 Stuttgart, Germany\\[2pt]
+anna.beispiel@ians.uni-stuttgart.de}
+
+% Author name
+\setName{Anna\\[4pt] Beispiel}
+
+% uncommand for individual footer layout
+% \setFooter{
+% \begin{tikzpicture}[remember picture,overlay]
+%     %left aligned footer-content (image)
+%     \node[anchor=south west, align=left, yshift=0.01\paperwidth, xshift=0.066\paperwidth] at (current page.south west) {
+%       \includegraphics[height=0.035\paperheight]{logo_institute.pdf}
+%       %\includegraphics[height=0.035\paperheight]{f8banner.pdf}
+%       %\includegraphics[height=0.035\paperheight]{mathebanner.pdf}
+%     };
+%     %center aligned footer-content (image)
+%     \node[anchor=south, align=center, yshift=0.01\paperwidth, xshift=0] at (current page.south) {
+%       % \includegraphics[height=0.035\paperheight]{logo_simtech.pdf}
+%     };
+%     %center aligned footer-content (text) - yshift may be modified for alignment
+%     \node[anchor=south, align=center, yshift=0.025\paperwidth, xshift=0] at (current page.south) {
+%       % {\bfseries\large www.sfbtrr75.de}\\
+%       % {\bfseries\large www.simtech.uni-stuttgart.de}
+%     };
+%     %right aligned footer-content (image)
+%     \node[anchor=south east, align=right, yshift=0.01\paperwidth, xshift=-0.066\paperwidth] at (current page.south east) {
+%       \includegraphics[height=0.035\paperheight]{logo_simtech.pdf}
+%     };
+% \end{tikzpicture}
+% }
+
+%----------------------------------------------------------------------------------------
+%   Content (begin)
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{frame}
+\centering
+\begin{columns}[T]
+\begin{column}{\colCWidth}
+
+%----------------------------------------------------------------------------------------
+%   Content, left (begin)
+%----------------------------------------------------------------------------------------
+
+\justifying
+
+\section{Lorem Ipsum}
+
+\blindtext[3]
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{c|c|c|c|c}
+    & \HeadCell{unprotected} & \HeadCell{transfer stage} & \HeadCell{smoothing stage} & \HeadCell{FTMG}\\
+    \hline
+    \BodyCell{\textbf{time}} & \BodyCell{26.1562} & \BodyCell{27.4128} & \BodyCell{26.7905} & \BodyCell{27.9090}\\
+    \hline
+    \BodyCell{\textbf{factor}} & \BodyCell{1} & \BodyCell{1.0480} & \BodyCell{1.0243} & \BodyCell{1.0670}\\
+  \end{tabular}
+  \caption{One solution to color tables in a cd-like way.}
+\end{table}
+
+\blindtext[3]
+
+\begin{figure}[H]
+  \includegraphics[keepaspectratio=true, width=0.9\columnwidth]{logo_simtech}
+  \caption{A figure with picture.}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%   Content, left (end)
+%----------------------------------------------------------------------------------------
+
+\end{column}
+\begin{column}{\colCWidth}
+
+%----------------------------------------------------------------------------------------
+%   Content, right (begin)
+%----------------------------------------------------------------------------------------
+\justifying
+
+\section{Lorem Ipsum}
+\blindtext
+\begin{itemize}
+	\item Test
+	\begin{itemize}
+		\item Test
+		\begin{itemize}
+			\item Test
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\justifying\blindtext
+\begin{enumerate}
+	\item Test
+	\begin{enumerate}
+		\item sub
+		\begin{enumerate}
+			\item subsub
+		\end{enumerate}
+	\end{enumerate}
+	\item Test
+\end{enumerate}
+
+\section{Lorem Ipsum Section}
+\blindtext[2]
+
+\subsection{Lorem Ipsum Subsection}
+\blindtext[1]
+
+\nocite{*} %shows all content within the bibliography file
+\section{References}
+\bibliography{references.bib}
+
+%----------------------------------------------------------------------------------------
+%   Content, right (end)
+%----------------------------------------------------------------------------------------
+
+\end{column}
+\end{columns}
+
+\end{frame}
+\end{document}
+
+%----------------------------------------------------------------------------------------
+%   Content (end)
+%----------------------------------------------------------------------------------------
