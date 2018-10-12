@@ -27,6 +27,8 @@
 \usepackage{color}
 \usepackage{bm}
 \usepackage{amsmath}
+\usepackage{siunitx}
+
 
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
@@ -57,7 +59,7 @@
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
 %% please capitalize first letter and insert punctuation after last keyword
-\keywords{muscle, fascicle, mesh, Laplacce, electrostatic, streamline}
+\keywords{muscle, fascicle, mesh, Laplace, electrostatic, streamline}
 
 %% ACM Computing Classification System (CCS).
 %% See <http://www.acm.org/class/1998/> for details.
@@ -89,13 +91,20 @@
 
 %% the only exception to this rule is the \firstsection command
 \section{Introduction}\label{sec:intro}
-Skeletal muscles have a wide range of anatomical architectures. They often form a heterogenous curvature, while the tendon and bone attachments vary in their morphology~\cite{Choi2013}. Each muscle consists of multiple muscle fibers which can contract via Myosin motors \cite{Jiangcheng2015} and thus create a force pulling on the bones. These fibers are not long enough to spread across the whole muscle, so they are grouped in paralleled bundles called fascicles. 
-According to \cite{Etemadi.et.Al.} the biceps of an athletic individuals has around 300.000 muscle fibers, which are single cells approximately 50μm in diameter and several centimetres long \cite{Cooper2000}. Each fiber has a thick myosin filament and a thin actin filament, which surrounds the myosin. During the process of muscle contraction, the actin and myosin filaments slide past each other resulting in shortening of the fiber.
-Since the mechanical force is transmitted along the muscle fibers, it is important for biomechanical simulations to obtain an adequate representation of their trajectories. This way we can get much more realistic geometries e.g. of a contracted biceps. However, this is not a simple task because of the complexity and diversity of the various muscles. To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber.
+Skeletal muscles have a wide range of anatomical architectures. They often form a heterogenous curvature, while the tendon and bone attachments vary in their morphology~\cite{Choi2013}. Each muscle consists of multiple muscle fibers which can contract via Myosin motors, according to Jiangcheng et al. \cite{Jiangcheng2015}, and thus create a force pulling on the bones. Each motor is organized as a chain of contractile parts, called sarcomeres. The fibers are not long enough to cover the whole muscle, so they are grouped in paralleled bundles called fascicles. 
+
+According to \cite{Etemadi.et.Al.} the biceps of an athletic individual has around 300.000 muscle fibers, which are single cells approximately 50 \si\micro m in diameter and several centimeters long \cite{Cooper2000}. Each fiber has a thick myosin filament and a thin actin filament, which surrounds the myosin. During the process of muscle contraction, the actin and myosin filaments slide past each other resulting in shortening of the fiber.
+
+Since the mechanical force is transmitted along the muscle fibers, it is important for biomechanical simulations to obtain an adequate representation of their trajectories. In this way we can get much more realistic geometries e.g. of a contracted biceps. However, this is not a simple task because of the complexity and diversity of the various muscles. To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber.
+
 To simulate the contraction of a muscle we need an approximation of the fascicles, that stretch across the muscle. Although we can see them with our bare eyes, it is not possible to determine their pathway using an ordinary CT-scan. 
-Therefore, we need a method to calculate the stream of these fascicles. Muscles are often modelled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. However, as Choi and Blemker stated, these models are not able to cover three-dimensional deformations.
-One of the more promising approach was using a Laplacian vector field as presented in \cite{Choi2013}. 
-The goal of our work is the approximation of Muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. Gmsh ~\cite{Geuzaine2009} is a tool for generating 3-D finite element meshes with built in pre- and post processing. We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros. We use these features, because they match our needs for Meshing, Simulation and analysis of the Model. It can be compiled without the GUI, directly from the command line. For other manipulations and computations we use Python.
+Therefore, we need a method to calculate the trajectories of these fascicles. Muscles are often modelled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. However, as Choi and Blemker \cite{Choi2013} stated, these models are not able to cover three-dimensional deformations.
+
+One of the more promising approach is using a Laplacian vector field as presented by Choi et al. \cite{Choi2013}. 
+
+The goal of our work is the approximation of Muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. 
+% TODO	 überleitung, überblick üver folgende Kapitel
+Gmsh ~\cite{Geuzaine2009} is a tool for generating 3-D finite element meshes with built in pre- and post processing. We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros. We use these features, because they match our needs for Meshing, Simulation and analysis of the Model. It can be compiled without the GUI, directly from the command line. For other manipulations and computations we use Python.
 
 %
 %% \section{Introduction} %for journal use above \firstsection{..} instead
@@ -103,11 +112,11 @@ The goal of our work is the approximation of Muscle fascicles based on the 3D-mo
 %\todo{Cite some stuff: bullshit~\cite{lipsa2011visualization} and simulation~\cite{hocker:084707}.}
 %
 \section{Methods}
-The first step of calculation of the streamlines based on a CT-Scan of the muscle, using gmsh is to repair the stl file. Small holes in the surface would make it impossible for gmsh to mesh the volume. Most of the mesh processing tools (eg. Meshlab, Blender, Microsoft 3D Builder) feature a repair function. 
+The first step when calculating the streamlines based on a CT-Scan of the muscle is to repair the STL file. Small holes in the surface would make it impossible for gmsh to mesh the volume. Most of the mesh processing tools (eg. Meshlab, Blender, Microsoft 3D Builder) feature a repair function. % TODO erklären (anhand figure 1?), CT-scan erklären
 
-Since our pipeline is not suited to compute the streamlines for a biceps with a fork included, we need to cut the 3D-model just below the fork and some part from the opposite side. As a nice side-effect we get a better distribution of the streamlines in the center part of the muscle.
+Since our pipeline is not suited to compute the streamlines for a biceps with a fork included, we need to cut the 3D-model just below the fork and some part from the opposite side. As a nice side-effect we get a better distribution of the streamlines in the center part of the muscle. %TODO Bild?
 
-The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a 
+The stl-file does not connect the surface triangles with its neighbours. Gmsh however needs one big surface to create a 
 volume in which we can compute the streamlines. To connect all the small surfaces, we reclassify the mesh with a threshold of 0.
 This runs a edge-detection for all triangles with an angle to its neighbour greater than 0 (so basically every neighbour) and we can connect all the 
 detected surfaces to one big surface.
@@ -142,7 +151,7 @@ The Biceps, as the name indicates has two heads. For easier computation and bett
 \end{figure}
 
 \section{Reassembling}
-The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than 0°. This excludes the two cut surfaces, since these surfaces all have an angle of 0°. The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. Finally we can recombine all the detected surfaces to one big surface. The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. The basic operations done in the script are the following:
+The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than \ang{0}. This excludes the two cut surfaces, since these surfaces all have an angle of \ang{0}. The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. Finally we can recombine all the detected surfaces to one big surface. The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. The basic operations done in the script are the following:
 
 \begin{verbatim}
 //declare ss as surface
@@ -250,9 +259,9 @@ So now we use the earlier mentioned Plugin within the post processing described 
 Our next step is to add up the vectors of each streamline separately. This is done by our Python Script Streamline-converter, which gets the vector data from the BicepsStreamline.pos file. Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. All in all, we can now use GMSH to merge the streamlines.geo file with our biceps surface to visualize the result. However there are Multiple uses of how to represent the streamlines. Another visualization is 3D-printing the streamlines.
 
 \section{Printing}
-In preparation for Printing the Streamlines must get some volume. For this step a python script creates points along the streamlines at the wanted radius. The points are then connected and Meshed. As of shape we choose a simple hexagonal profile. After volume is created all of the streamlines are combined into one stl file. Streamlines that lay outside of the Biceps will get erased in this step, because they will not have any points in the file. The muscle fibres are substracted off of the full biceps using blender in order to have a hollowed out model with space for the fibres. 
+In preparation for Printing the Streamlines must get some volume. For this step a python script creates points along the streamlines at the wanted radius. The points are then connected and Meshed. As of shape we choose a simple hexagonal profile. After volume is created all of the streamlines are combined into one stl file. Streamlines that lay outside of the Biceps will get erased in this step, because they will not have any points in the file. The muscle fibers are substracted off of the full biceps using blender in order to have a hollowed out model with space for the fibers. 
 The 3D-Printer we use is the Ultimaker 3 extended it has two extruders so we can print with two different materials or colours. The software used to pepare printing is Cura. We tried printing with a clear material but we didnt get a result, wich allowed the inner setup to be visible. We came up with another solution which is:-.
-In Cura the hollowed out muscle and the fibres are merged together and colours and materials are set.
+In Cura the hollowed out muscle and the fibers are merged together and colours and materials are set.
 
 \section{Discussion}
 When working with meshes the level of detail plays a key role. The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. As far as refining by splitting goes, we managed to refine the mesh up to two times. More splitting was not possible due to Gmsh crashing. This increases the amount of nodes by the power of four. When calculating in the refined setup the streamlines pass way more edges of the thetraeda inside the muscle and as a consequence get a correction in terms of direction and force. As a result we recieve smoother streamlines, which cover more space. This is to be seen in figure ~\ref{fig:refStreamlines}.
