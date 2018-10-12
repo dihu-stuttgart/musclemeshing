@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 OCT 2018 13:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 OCT 2018 12:54
 entering extended mode
-**./template.tex
-(template.tex
+**./documentation.tex
+(documentation.tex
 LaTeX2e <2018-04-01> patch level 5
 (vgtc.cls
 Document Class: vgtc 2006/05/21 IEEE VGTC
@@ -501,8 +501,8 @@ Package: l3keys2e 2018-09-24 LaTeX2e option processing using LaTeX3 keys
 ("C:\Program Files\MiKTeX 2.9\tex\latex\translator\translator.sty"
 Package: translator 2018/01/04 v1.12 Easy translation of strings in LaTeX
 ))
-(template.aux)
-\openout1 = `template.aux'.
+(documentation.aux)
+\openout1 = `documentation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
@@ -735,11 +735,11 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 
  <./pics/triceps.png> <./diamondrule.pdf>]
-<pics/flow.png, id=14, 413.545pt x 678.535pt>
+<pics/flow.png, id=14, 441.65pt x 779.91376pt>
 File: pics/flow.png Graphic file (type png)
 <use pics/flow.png>
 Package pdftex.def Info: pics/flow.png  used on input line 135.
-(pdftex.def)             Requested size: 169.09293pt x 277.44533pt.
+(pdftex.def)             Requested size: 169.09293pt x 298.6076pt.
 <pics/holes.png, id=15, 420.82219pt x 220.57407pt>
 File: pics/holes.png Graphic file (type png)
 <use pics/holes.png>
@@ -754,7 +754,7 @@ Overfull \hbox (1.43735pt too wide) in paragraph at lines 175--175
 []\OT1/pcr/m/n/9 //physical entities are needed for simulation[] 
  []
 
-[2 <./pics/flow.png> <./pics/holes.png>]
+[2 <./pics/flow.png (PNG copy)> <./pics/holes.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 228--234
 
  []
@@ -764,12 +764,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 253--259
 
  []
 
-<pics/L.jpg, id=23, 654.445pt x 845.1575pt>
+<pics/L.jpg, id=22, 654.445pt x 845.1575pt>
 File: pics/L.jpg Graphic file (type jpg)
 <use pics/L.jpg>
 Package pdftex.def Info: pics/L.jpg  used on input line 268.
 (pdftex.def)             Requested size: 120.78119pt x 155.9777pt.
-<pics/L-ele.png, id=24, 499.11469pt x 609.77812pt>
+<pics/L-ele.png, id=23, 499.11469pt x 609.77812pt>
 File: pics/L-ele.png Graphic file (type png)
 <use pics/L-ele.png>
 Package pdftex.def Info: pics/L-ele.png  used on input line 269.
@@ -779,7 +779,7 @@ Overfull \hbox (8.95659pt too wide) in paragraph at lines 268--270
 [][] [] 
  []
 
-<pics/Sim.png, id=25, 660.21657pt x 603.75563pt>
+<pics/Sim.png, id=24, 660.21657pt x 603.75563pt>
 File: pics/Sim.png Graphic file (type png)
 <use pics/Sim.png>
 Package pdftex.def Info: pics/Sim.png  used on input line 277.
@@ -789,19 +789,19 @@ Package pdftex.def Info: pics/Sim.png  used on input line 277.
 LaTeX Warning: Reference `fig:refStreamlines' on page 4 undefined on input line
  317.
 
-(template.bbl) [4] (template.aux)
+(documentation.bbl) [4] (documentation.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  14183 strings out of 492973
- 282395 string characters out of 3135938
- 308860 words of memory out of 3000000
+ 282455 string characters out of 3135938
+ 308875 words of memory out of 3000000
  17925 multiletter control sequences out of 15000+200000
  578663 words of font info for 117 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,63p,822b,540s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,11n,63p,827b,540s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
@@ -812,9 +812,9 @@ am Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.
 9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
 /times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pf
 b>
-Output written on template.pdf (4 pages, 1127356 bytes).
+Output written on documentation.pdf (4 pages, 1082928 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
+ 70 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
