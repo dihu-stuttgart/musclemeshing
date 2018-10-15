@@ -153,10 +153,11 @@ The Biceps, as the name indicates has two heads. For easier computation and bett
 \end{figure}
 
 \section{Reassembling}
-The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than \ang{0}. This excludes the two cut surfaces, since these surfaces all have an angle of \ang{0}. The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. Finally we can recombine all the detected surfaces to one big surface. The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. The basic operations done in the script are the following:
+The stl-file does not connect the surface triangles with its neighbours. Gmesh however needs one big surface to create a volume in which we can compute the streamlines. To connect all the small surfaces, we use the reclassify option with a threshold of 0. This runs an edge-detection for all triangles with an angle to its neighbour greater than \ang{0}. This excludes the two cut surfaces, since these surfaces all have an angle of \ang{0}. The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. Finally we can recombine all the detected surfaces to one big surface. The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. The basic operations done in the script are to be seen in ~\ref{code:geo}. From all the surfaces, a compound surface is created which then is combined in a surface loop. The parametrs used, for example Loop(10000) means that a new loop, with the number 10000 as a name, is defined. In the next line, the 10000 is used again to reference the loop, which is then declared as the boundary of a volume with the number 100 as for reference. 
 
 %TODO Werte erklären
 \begin{verbatim}
+\label{code:geo}
 //declare ss as surface
 ss[] = Surface {:};
 //combine the surfaces
@@ -174,16 +175,30 @@ Mesh 3;
 Solver.AutoMesh = 0;
 \end{verbatim}
 
-With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis of the model, the process is fairly simple. We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively. These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. We do this to cover the whole surface with the starting points of the streamlines.
+With this new reassembled 3D-structure we now run our python script to detect the two cut surfaces. Since we cut the biceps orthogonal to the Z-axis of the model, the process is fairly simple.
+We look for all vertices with the highest z-coordinate for the upper boundary and the lowest z-coordinate for the lower boundary, respectively.
+These two sets are grouped and form two new surfaces. With this surface we save the maximum and minimum of the y- and x- coordinates for later use of the streamlines. 
+We do this to cover the whole surface with the starting points of the streamlines.
+Physical entities are declared as items, that are used in the simulation. 
+In this case the two surfaces identified by the python script,the volume and the surface of the muscle are our physical regions. 
 
 %TODO Absätze
 \section{Meshing}
 Meshing with Gmsh is fairly easy. By default Gmsh chooses between three 2D algorithms and two 3D algorithms.
 The automatic algorithm selection tries to select the most apropriate for the given structure.
-For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm. Every one of them has different uses. According to Gmsh The "MeshAdapt" works best for very complex, curved surfaces. "Frontal" is the best choice, when high element quality is important. And "Delauny" is fastest for large meshes of plane Surfaces.
+
+For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm.
+Every one of them has different uses. According to Gmsh The "MeshAdapt" works best for very complex, curved surfaces.
+"Frontal" is the best choice, when high element quality is important and "Delauny" is fastest for large meshes of plane Surfaces.
 As stated in the manual for Gmsh the automatic selection chooses "Delauny" for plane surface and "MeshAdapt" for all other surfaces. 
-For 3D algorithms there are "Delauny" and "Frontal". The “Delaunay” algorithm is the most robust and the fastest. However, this algorithm will sometimes modify the surface mesh, and is thus not suitable for producing hybrid structured/unstructured grids. In that case the “Frontal” algorithm should be preferred. As our mesh is only unstructured, the "Delauny" is our algorithm. The quality of the elements produced by both algorithms is comparable.
-For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
+
+For 3D algorithms there are "Delauny" and "Frontal". 
+The “Delaunay” algorithm is the most robust and the fastest. 
+However, this algorithm will sometimes modify the surface mesh, and is thus not suitable for producing hybrid structured/unstructured grids.
+In that case the “Frontal” algorithm should be preferred. 
+As our mesh is unstructured, the "Delauny" is our algorithm. 
+The quality of the elements produced by both algorithms is comparable.
+For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed. In ~\ref{code:geo} the Line "Mesh 3;" is executed, which does exactly this: first, Mesh 2D then, Mesh 3D.
 %\begin{figure}
 %	\begin{center}
 %		\includegraphics[width=\linewidth]{gridCompare.jpg}
@@ -196,7 +211,8 @@ For our 3D Mesh, first, the 2D surfaces, then the Volume is meshed.
 \section{Simulation}
 Our goal is to calculate streamlines of Laplacian vector fields, which according to~\cite{Choi2013} are fairly close to the muscular fascicle arangement. %TODO Wiederholung
 Gmsh's solver getDP features a plugin, which calculates the Streamlines based on the vector field. 
-Therefore we need a simulation on fluid flow, Electrostatics or similar. %TODO Gleichungen oder modell erwähnen, ist electrostatic = Laplace?
+Therefore we need a simulation on fluid flow or similar. %TODO Gleichungen oder modell erwähnen, ist electrostatic = Laplace?
+Electrostatics in a dielectric environment meets the requirement for the Laplace equation, as well as thermodynamics does.
 We tried out both thermodynamic and electrostatic simulation. 
 In figure ~\ref{fig:L} we see the unsatisfying results we earned using the thermodynamic approach. 
 At the corner of the L-figure there are streamlines leaving the Model. 
@@ -257,7 +273,7 @@ The Structure of the File is as Follows:
 	-the Jacobian of the transformation, \newline
 	-the integration method to be used.\newline
 	\item[Resolution]
-	In the Resolution it is specified what to do with the weak formulation. We simply generate a linear system, solve it and save the solution. %TODO finite element method
+	In the Resolution it is specified what to do with the weak formulation. We simply generate a linear system, solve it and save the solution.  %TODO finite element method??
 	\item[Post Processing]
 	There are two parts of postprocessing available in getDP. First we can evaluate the outcome of the formulation. Here we the quantities are the scalar electric potetial, the electric field and the electric displacement.
 	The second part are postprocessing operations. In our case the Streamline generation is done here. The Script, which detects the inflow and outflow surfaces writes the X/Y/Z values here so that we get a good coverage of starting points for our streamlines. The Operation is then run and the output saved to a postprocessing file (.pos).
@@ -310,8 +326,7 @@ The muscle fibers are substracted from the full biceps volume using blender in o
 The 3D-Printer we use is the \textit{Ultimaker 3 extended}, which is equipped with two extruders. 
 This gives us the option to print with two different materials or colours. %TODO Bild
 The software used to pepare printing is Cura. 
-We tried printing with a clear material but we didnt get a result, wich allowed the inner setup to be visible. We came up with another solution which is:-.
-In Cura the hollowed out muscle and the fibers are merged together and colours and materials are set.
+We tried printing with a clear material but we didnt get a result, wich allowed the inner setup to be visible. We came up with another solution. We printed the Muscle without the clear material. The Number of fibres was 7 x 7 when executing our Pipeline. The printed muscle, however has fewer fibres, as not all of the streamline staring points lay inside the muscle. The outcome can be seen in ~ref{fig:printedBiceps}. 
 
 \section{Discussion}
 When working with meshes the level of detail plays a key role. The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. As far as refining by splitting goes, we managed to refine the mesh up to two times. More splitting was not possible due to Gmsh crashing. This increases the amount of nodes by the power of four. When calculating in the refined setup the streamlines pass way more edges of the thetraeda inside the muscle and as a consequence get a correction in terms of direction and force. As a result we recieve smoother streamlines, which cover more space. This is to be seen in figure ~\ref{fig:refStreamlines}.
