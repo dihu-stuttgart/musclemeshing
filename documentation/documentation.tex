@@ -28,6 +28,7 @@
 \usepackage{bm}
 \usepackage{amsmath}
 \usepackage{siunitx}
+\usepackage{float}
 
 
 %% We encourage the use of mathptmx for consistent usage of times font
@@ -108,27 +109,31 @@ However, this is not a simple task because of the complexity and diversity of th
 To simplify the problem by a small degree, we can simulate the fascicles instead of every single fiber.
 
 To simulate the contraction of a muscle we need an approximation of the fascicles, that stretch across the muscle. 
-Although we can see them with our bare eyes, it is not possible to determine their pathway using an ordinary CT-scan. 
-Therefore, we need a method to calculate the trajectories of these fascicles.
+Although we can see them with our bare eyes, it is not eays to determine their pathway. 
+There are other measurements such as the dissection of cadaver, which are limited to a few sparse locations, and ultrasound imaging, which is limited to a two-dimensional image plane.
+The only three-dimensional technique to visualize the trajectories of the fascicles is diffusion tensor magnetic resonance imaging (DT-MRI) \cite{Choi2013}.
+The tracing algorithm however is prone to noise in the acquired data.
+Therefore, we need a method to calculate the trajectories of these fascicles in a three-dimensional space.
 Muscles are often modelled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. 
 However, as Choi and Blemker \cite{Choi2013} stated, these models are not able to cover three-dimensional deformations.
-
 One of the more promising approach is using a Laplacian vector field as presented by Choi et al. \cite{Choi2013}. 
 
-The goal of our work is the approximation of Muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. 
-% TODO	 überleitung, überblick üver folgende Kapitel
-Gmsh ~\cite{Geuzaine2009} is a tool for generating 3-D finite element meshes with built in pre- and post processing. 
-We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros.
-We use these features, because they match our needs for Meshing, Simulation and analysis of the Model. 
-It can be compiled without the GUI, directly from the command line. 
-For other manipulations and computations we use Python.
+The goal of our work is the approximation of muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. 
 
+% TODO	 überleitung, überblick üver folgende Kapitel
 %
 %% \section{Introduction} %for journal use above \firstsection{..} instead
 %
 %\todo{Cite some stuff: bullshit~\cite{lipsa2011visualization} and simulation~\cite{hocker:084707}.}
 %
 \section{Methods}
+To accomplish our goal, we need a tool to easily mesh the biceps and render it, while calculating an partial differential equation. 
+Gmsh ~\cite{Geuzaine2009} is used for generating 3-D finite element meshes with built in pre- and post processing. 
+We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros.
+We use these features, because they match our needs for meshing, simulation and analysis of the model. 
+It can be compiled without the GUI, directly from the command line. 
+For other manipulations and computations we use Python.
+
 The first step when calculating the streamlines based on a CT-Scan of the muscle is to repair the STL file. 
 Small holes in the surface would make it impossible for gmsh to mesh the volume. 
 Most of the mesh processing tools (eg. Meshlab, Blender, Microsoft 3D Builder) feature a repair function. % TODO erklären (anhand figure 1?), CT-scan erklären
@@ -263,6 +268,16 @@ At the corner of the L-figure there are streamlines leaving the Model.
 The result of the electrostatic simulation is spread evenly and has fewer whirls. 
 It has a overall better coverage of the model.
 
+\begin{figure}
+	
+	\begin{minipage}{\linewidth}
+		\includegraphics[width=.5\linewidth]{L.PNG} 
+		\includegraphics[width=.53\linewidth]{L-ele.png}
+		\caption{Comparison of thermodynamic (left) and electrostatic (right) calculation.}
+		\label{fig:L}
+	\end{minipage}
+\end{figure}
+
 The Laplace equation can be used in 3D just as in 2D. 
 GetDP's problem definition files (.pro) are used to descripe the models for simulation. 
 In this model we consider the calculation of the electric field given a static distribution of electric potential. 
@@ -296,7 +311,7 @@ The structure of the file is as follows:
 	-a set of entities to wich the basis functions are associated (here all the nodes of the domain)\newline
 	-a constraint (here the Dirichlet boundary conditions)
 	
-	\item[Jacobian] %TODO benötigt?
+	\item[Jacobian] 
 	Jacobians are used for specifying the mapping of elements in the mesh.
 	"Vol" represents the classical 1-to-1 mapping for identical dimension whereas "sur" represents the mapping between 2D and 3D and "lin" is used to map line segments to segments in three dimensional space.
 	
@@ -326,9 +341,16 @@ The structure of the file is as follows:
 	\]
 	
 	holds for all v'.
+	\begin{verbatim} 
+	Equation {
+	  Integral { [epsilon[] * Dof(d,v) , {d v} ]; 
+	    In VolE le; Jacobian Vol; Integration Int}
+	}
+	\end{verbatim}
 	
-	The "Integral" statement in the formulation is a representation of this weak formulation. 
+	This "Integral" statement in the formulation is a representation of this weak formulation. 
 	It features four seperated arguements:
+	
 	-the density\newline
 	-the domain of integration, \newline
 	-the Jacobian of the transformation, \newline
@@ -336,7 +358,7 @@ The structure of the file is as follows:
 	
 	\item[Resolution]
 	In the resolution it is specified what to do with the weak formulation. 
-	We simply generate a linear system, solve it and save the solution.  %TODO finite element method??
+	We simply generate a linear system, solve it and save the solution.  
 	\item[Post Processing]
 	There are two parts of postprocessing available in getDP. 
 	First we can evaluate the outcome of the formulation. 
@@ -346,16 +368,6 @@ The structure of the file is as follows:
 	Here the script, which detects the inflow and outflow surfaces, writes the X/Y/Z values so that we get a good coverage of starting points for our streamlines. 
 	The operation is then run and the output saved to a postprocessing file (.pos).
 	\end{description}
-
-\begin{figure}
-	
-	\begin{minipage}{\linewidth}
-		\includegraphics[width=.5\linewidth]{L.PNG} 
-		\includegraphics[width=.53\linewidth]{L-ele.png}
-		\caption{Comparison of thermodynamic (left) and electrostatic (right) calculation.}
-		\label{fig:L}
-	\end{minipage}
-\end{figure}
 
 \begin{figure}
 	\begin{center}
@@ -403,6 +415,12 @@ The number of fibres was 7 x 7 when executing our pipeline.
 The printed muscle, however has fewer fibres, as not all of the streamline staring points lay inside the muscle. 
 The outcome can be seen in ~ref{fig:printedBiceps}. 
 
+\begin{figure}[H]
+		\includegraphics[width=.8\linewidth]{small_print.jpg}
+		\caption{A small, printed version of the biceps-model}
+		\label{fig:printedBiceps}
+\end{figure}
+
 \section{Discussion}
 When working with meshes the level of detail plays a key role. 
 The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. 
@@ -417,6 +435,11 @@ Reclassifying the Mesh is done by hand since Gmsh does not allow reclassifying a
 For our Model it is critical to set the threshold to zero. 
 This is because Gmsh would see the surface of the muscle as one, when a higher threshold was chosen.
 
+When looking into runtime, the biggest factor is the number of points.
+Refining the model increases the runtime significantly. 
+The number of streamlines only plays a minor part when in reasonable range.
+We had no problem calculating over 10.000 streamlines. When trying to calculate 250.000 streamlines the runtime exceeds several minutes.
+
 \begin{figure}
 	
 	\begin{minipage}{\linewidth}
@@ -428,7 +451,20 @@ This is because Gmsh would see the surface of the muscle as one, when a higher t
 \end{figure}
 
 \section{Conclusion}
+Another possible work is to look into giving the calculatet fascicles thickness based on measurements. 
+The challenge would be to fit a reasonable amount of fibres inside of the model without exceeding the boundaries.
+We have only scratched the surface of this topic in order to print the muscle.
 
+In conclusion we achieved our goal to develop a method for calculating muscular fascicles, based on the CT-scan.
+We provide the possibility, to specify the amount of streamlines, and the number of mesh refinements. 
+We applied the same procedure to a scan of the musculus triceps brachii as well. 
+The result is in similar quality as the biceps.
+Thus it is possible to try out further muscles and calculate their fascicle arrangement as well.
+We had difficulties printing the muscle as neither time, nor expirience with 3D-printing was sufficient. 
+We wanted to print red streamlines into the transparent muscle with the help of the dual-printing function of the Ultimaker, but our two materials weren't compatbile with eachother. 
+
+The resolution of the streamlines is currently limited to the resolution of the biceps-model. 
+Therefor, in order to improve the quality of the streamlines e.g. edge-smoothing, a CT-scan with a higher resolution is needed. 
 
 \section{Future work}
 -alignment of 3D fascicles with "real thickness"

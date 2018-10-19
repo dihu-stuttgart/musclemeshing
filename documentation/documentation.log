@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  19 OCT 2018 13:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  19 OCT 2018 17:33
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -501,38 +501,46 @@ Package: l3keys2e 2018-09-24 LaTeX2e option processing using LaTeX3 keys
 ("C:\Program Files\MiKTeX 2.9\tex\latex\translator\translator.sty"
 Package: translator 2018/01/04 v1.12 Easy translation of strings in LaTeX
 ))
-(documentation.aux)
+("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count273
+\float@exts=\toks21
+\float@box=\box52
+\@float@everytoks=\toks22
+\@floatcapt=\box53
+) (documentation.aux)
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 87.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 88.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count273
+\scratchcounter=\count274
 \scratchdimen=\dimen162
-\scratchbox=\box52
-\nofMPsegments=\count274
-\nofMParguments=\count275
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count276
+\scratchbox=\box54
+\nofMPsegments=\count275
+\nofMParguments=\count276
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count277
 \MPscratchDim=\dimen163
-\MPnumerator=\count277
-\makeMPintoPDFobject=\count278
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count278
+\makeMPintoPDFobject=\count279
+\everyMPtoPDFconversion=\toks24
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -668,66 +676,66 @@ Dictionary: translator-basic-dictionary, Language: English
 ("C:\Program Files\MiKTeX 2.9\tex\latex\siunitx\siunitx-abbreviations.cfg"
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 87
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 88
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ztmcm.fd"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 87
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 88
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlztmcm.fd"
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 87
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 88
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsztmcm.fd"
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 87
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 88
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxztmcm.fd"
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 88.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 89.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1phv.fd"
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
 <pics/triceps.png, id=1, 980.16188pt x 608.2725pt>
 File: pics/triceps.png Graphic file (type png)
 <use pics/triceps.png>
-Package pdftex.def Info: pics/triceps.png  used on input line 88.
+Package pdftex.def Info: pics/triceps.png  used on input line 89.
 (pdftex.def)             Requested size: 341.43306pt x 211.88689pt.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <8> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 89.
 <diamondrule.pdf, id=3, 213.79875pt x 12.045pt>
 File: diamondrule.pdf Graphic file (type pdf)
 <use diamondrule.pdf>
-Package pdftex.def Info: diamondrule.pdf  used on input line 88.
+Package pdftex.def Info: diamondrule.pdf  used on input line 89.
 (pdftex.def)             Requested size: 213.79822pt x 12.04495pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 93.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 94.
 LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <9> not available
-(Font)              Font shape `OT1/phv/b/sc' tried instead on input line 93.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 101.
+(Font)              Font shape `OT1/phv/b/sc' tried instead on input line 94.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 102.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
@@ -739,80 +747,97 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 <pics/flow.png, id=14, 413.545pt x 678.535pt>
 File: pics/flow.png Graphic file (type png)
 <use pics/flow.png>
-Package pdftex.def Info: pics/flow.png  used on input line 161.
+Package pdftex.def Info: pics/flow.png  used on input line 166.
 (pdftex.def)             Requested size: 169.09293pt x 277.44533pt.
 <pics/holes.png, id=15, 420.82219pt x 220.57407pt>
 File: pics/holes.png Graphic file (type png)
 <use pics/holes.png>
-Package pdftex.def Info: pics/holes.png  used on input line 177.
+Package pdftex.def Info: pics/holes.png  used on input line 182.
 (pdftex.def)             Requested size: 144.93889pt x 75.97023pt.
 
 
-LaTeX Warning: Reference `code:geo' on page 2 undefined on input line 192.
+LaTeX Warning: Reference `code:geo' on page 2 undefined on input line 197.
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 198.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 203.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (1.43735pt too wide) in paragraph at lines 215--215
+Overfull \hbox (1.43735pt too wide) in paragraph at lines 220--220
 []\OT1/pcr/m/n/9 //physical entities are needed for simulation[] 
  []
 
-
-LaTeX Warning: Reference `code:geo' on page 2 undefined on input line 245.
-
 [2 <./pics/flow.png> <./pics/holes.png>]
+
+LaTeX Warning: Reference `code:geo' on page 3 undefined on input line 250.
+
 <pics/L.PNG, id=24, 460.72125pt x 627.84563pt>
 File: pics/L.PNG Graphic file (type png)
 <use pics/L.PNG>
-Package pdftex.def Info: pics/L.PNG  used on input line 354.
+Package pdftex.def Info: pics/L.PNG  used on input line 274.
 (pdftex.def)             Requested size: 120.78119pt x 164.5868pt.
 <pics/L-ele.png, id=25, 499.11469pt x 609.77812pt>
 File: pics/L-ele.png Graphic file (type png)
 <use pics/L-ele.png>
-Package pdftex.def Info: pics/L-ele.png  used on input line 355.
+Package pdftex.def Info: pics/L-ele.png  used on input line 275.
 (pdftex.def)             Requested size: 128.02776pt x 156.40785pt.
 
-Overfull \hbox (8.95659pt too wide) in paragraph at lines 354--356
+Overfull \hbox (8.95659pt too wide) in paragraph at lines 274--276
 [][] [] 
  []
 
-<pics/Sim.png, id=26, 660.21657pt x 603.75563pt>
+
+Overfull \hbox (21.43738pt too wide) in paragraph at lines 349--349
+ []  \OT1/pcr/m/n/9 Integral { [epsilon[] * Dof(d,v) , {d v} ];[] 
+ []
+
+
+Overfull \hbox (26.83737pt too wide) in paragraph at lines 349--349
+ []    \OT1/pcr/m/n/9 In VolE le; Jacobian Vol; Integration Int}[] 
+ []
+
+[3 <./pics/L.PNG> <./pics/L-ele.png>]
+<pics/Sim.png, id=36, 660.21657pt x 603.75563pt>
 File: pics/Sim.png Graphic file (type png)
 <use pics/Sim.png>
-Package pdftex.def Info: pics/Sim.png  used on input line 363.
+Package pdftex.def Info: pics/Sim.png  used on input line 374.
 (pdftex.def)             Requested size: 169.09293pt x 154.63277pt.
-[3 <./pics/L.PNG> <./pics/L-ele.png>]
-<pics/Streamlines.PNG, id=37, 794.2172pt x 446.41782pt>
+<pics/small_print.jpg, id=37, 4047.12pt x 3035.34pt>
+File: pics/small_print.jpg Graphic file (type jpg)
+<use pics/small_print.jpg>
+Package pdftex.def Info: pics/small_print.jpg  used on input line 419.
+(pdftex.def)             Requested size: 193.25063pt x 144.92119pt.
+<pics/Streamlines.PNG, id=38, 794.2172pt x 446.41782pt>
 File: pics/Streamlines.PNG Graphic file (type png)
 <use pics/Streamlines.PNG>
-Package pdftex.def Info: pics/Streamlines.PNG  used on input line 424.
+Package pdftex.def Info: pics/Streamlines.PNG  used on input line 446.
 (pdftex.def)             Requested size: 120.78119pt x 67.88618pt.
-<pics/refStreamlines.PNG, id=38, 813.79031pt x 447.92343pt>
+<pics/refStreamlines.PNG, id=39, 813.79031pt x 447.92343pt>
 File: pics/refStreamlines.PNG Graphic file (type png)
 <use pics/refStreamlines.PNG>
-Package pdftex.def Info: pics/refStreamlines.PNG  used on input line 425.
+Package pdftex.def Info: pics/refStreamlines.PNG  used on input line 447.
 (pdftex.def)             Requested size: 123.19548pt x 67.80757pt.
 
-Overfull \hbox (4.12431pt too wide) in paragraph at lines 424--426
+Overfull \hbox (4.12431pt too wide) in paragraph at lines 446--448
 [][] [] 
  []
 
-(documentation.bbl) [4 <./pics/Sim.png> <./pics/Streamlines.PNG> <./pics/refStr
-eamlines.PNG>] (documentation.aux)
+[4 <./pics/Sim.png> <./pics/Streamlines.PNG> <./pics/refStreamlines.PNG> <./pic
+s/small_print.jpg>] (documentation.bbl) [5
+
+] (documentation.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14197 strings out of 492973
- 282726 string characters out of 3135938
- 309883 words of memory out of 3000000
- 17934 multiletter control sequences out of 15000+200000
+ 14264 strings out of 492973
+ 283635 string characters out of 3135938
+ 310282 words of memory out of 3000000
+ 17995 multiletter control sequences out of 15000+200000
  580527 words of font info for 120 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,63p,314b,536s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,8n,63p,314b,542s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
@@ -823,9 +848,9 @@ am Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.
 9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (4 pages, 1088384 bytes).
+Output written on documentation.pdf (5 pages, 5021286 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
+ 84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
