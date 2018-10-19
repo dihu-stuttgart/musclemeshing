@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 OCT 2018 12:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  19 OCT 2018 13:08
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -727,7 +727,8 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 93.
 LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <9> not available
 (Font)              Font shape `OT1/phv/b/sc' tried instead on input line 93.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 96.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 101.
+
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -735,73 +736,83 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 
  <./pics/triceps.png> <./diamondrule.pdf>]
-<pics/flow.png, id=14, 441.65pt x 779.91376pt>
+<pics/flow.png, id=14, 413.545pt x 678.535pt>
 File: pics/flow.png Graphic file (type png)
 <use pics/flow.png>
-Package pdftex.def Info: pics/flow.png  used on input line 135.
-(pdftex.def)             Requested size: 169.09293pt x 298.6076pt.
+Package pdftex.def Info: pics/flow.png  used on input line 161.
+(pdftex.def)             Requested size: 169.09293pt x 277.44533pt.
 <pics/holes.png, id=15, 420.82219pt x 220.57407pt>
 File: pics/holes.png Graphic file (type png)
 <use pics/holes.png>
-Package pdftex.def Info: pics/holes.png  used on input line 149.
+Package pdftex.def Info: pics/holes.png  used on input line 177.
 (pdftex.def)             Requested size: 144.93889pt x 75.97023pt.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 159.
 
- ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
+
+LaTeX Warning: Reference `code:geo' on page 2 undefined on input line 192.
+
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 198.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (1.43735pt too wide) in paragraph at lines 175--175
+Overfull \hbox (1.43735pt too wide) in paragraph at lines 215--215
 []\OT1/pcr/m/n/9 //physical entities are needed for simulation[] 
  []
 
-[2 <./pics/flow.png (PNG copy)> <./pics/holes.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 228--234
 
- []
+LaTeX Warning: Reference `code:geo' on page 2 undefined on input line 245.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 253--259
-
- []
-
-<pics/L.jpg, id=22, 654.445pt x 845.1575pt>
-File: pics/L.jpg Graphic file (type jpg)
-<use pics/L.jpg>
-Package pdftex.def Info: pics/L.jpg  used on input line 268.
-(pdftex.def)             Requested size: 120.78119pt x 155.9777pt.
-<pics/L-ele.png, id=23, 499.11469pt x 609.77812pt>
+[2 <./pics/flow.png> <./pics/holes.png>]
+<pics/L.PNG, id=24, 460.72125pt x 627.84563pt>
+File: pics/L.PNG Graphic file (type png)
+<use pics/L.PNG>
+Package pdftex.def Info: pics/L.PNG  used on input line 354.
+(pdftex.def)             Requested size: 120.78119pt x 164.5868pt.
+<pics/L-ele.png, id=25, 499.11469pt x 609.77812pt>
 File: pics/L-ele.png Graphic file (type png)
 <use pics/L-ele.png>
-Package pdftex.def Info: pics/L-ele.png  used on input line 269.
+Package pdftex.def Info: pics/L-ele.png  used on input line 355.
 (pdftex.def)             Requested size: 128.02776pt x 156.40785pt.
 
-Overfull \hbox (8.95659pt too wide) in paragraph at lines 268--270
+Overfull \hbox (8.95659pt too wide) in paragraph at lines 354--356
 [][] [] 
  []
 
-<pics/Sim.png, id=24, 660.21657pt x 603.75563pt>
+<pics/Sim.png, id=26, 660.21657pt x 603.75563pt>
 File: pics/Sim.png Graphic file (type png)
 <use pics/Sim.png>
-Package pdftex.def Info: pics/Sim.png  used on input line 277.
+Package pdftex.def Info: pics/Sim.png  used on input line 363.
 (pdftex.def)             Requested size: 169.09293pt x 154.63277pt.
-[3 <./pics/L.jpg> <./pics/L-ele.png> <./pics/Sim.png>]
+[3 <./pics/L.PNG> <./pics/L-ele.png>]
+<pics/Streamlines.PNG, id=37, 794.2172pt x 446.41782pt>
+File: pics/Streamlines.PNG Graphic file (type png)
+<use pics/Streamlines.PNG>
+Package pdftex.def Info: pics/Streamlines.PNG  used on input line 424.
+(pdftex.def)             Requested size: 120.78119pt x 67.88618pt.
+<pics/refStreamlines.PNG, id=38, 813.79031pt x 447.92343pt>
+File: pics/refStreamlines.PNG Graphic file (type png)
+<use pics/refStreamlines.PNG>
+Package pdftex.def Info: pics/refStreamlines.PNG  used on input line 425.
+(pdftex.def)             Requested size: 123.19548pt x 67.80757pt.
 
-LaTeX Warning: Reference `fig:refStreamlines' on page 4 undefined on input line
- 317.
+Overfull \hbox (4.12431pt too wide) in paragraph at lines 424--426
+[][] [] 
+ []
 
-(documentation.bbl) [4] (documentation.aux)
+(documentation.bbl) [4 <./pics/Sim.png> <./pics/Streamlines.PNG> <./pics/refStr
+eamlines.PNG>] (documentation.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14183 strings out of 492973
- 282455 string characters out of 3135938
- 308875 words of memory out of 3000000
- 17925 multiletter control sequences out of 15000+200000
- 578663 words of font info for 117 fonts, out of 3000000 for 9000
+ 14197 strings out of 492973
+ 282726 string characters out of 3135938
+ 309883 words of memory out of 3000000
+ 17934 multiletter control sequences out of 15000+200000
+ 580527 words of font info for 120 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,11n,63p,827b,540s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,8n,63p,314b,536s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
@@ -809,12 +820,12 @@ pe1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
 courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
-/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pf
-b>
-Output written on documentation.pdf (4 pages, 1082928 bytes).
+9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
+times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on documentation.pdf (4 pages, 1088384 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
+ 80 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
