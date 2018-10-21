@@ -16,17 +16,18 @@ H.~F. Choi and S.~S. Blemker.
 \bibitem{Etemadi.et.Al.}
 A.~A. Etemadi and F.~Hosseini.
 \newblock Frequency and size of muscle fibers in athletic body build.
-\newblock {\em The Anatomical Record}, 162(3):269--273.
+\newblock {\em The Anatomical Record}, 162(3):269--273, 1968.
 
 \bibitem{Geuzaine2009}
 C.~Geuzaine and J.-F. Remacle.
 \newblock Gmsh: A 3-d finite element mesh generator with built-in pre- and
   post-processing facilities.
 \newblock {\em International Journal for Numerical Methods in Engineering},
-  79(11):1309--1331.
+  79(11):1309--1331, 2009.
 
 \bibitem{Cooper2000}
 C.~GM.
 \newblock The cell: A molecular approach. 2nd edition.
+\newblock 2000.
 
 \end{thebibliography}
