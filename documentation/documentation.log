@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  21 OCT 2018 15:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  24 OCT 2018 20:13
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -735,7 +735,7 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 100.
 LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <9> not available
 (Font)              Font shape `OT1/phv/b/sc' tried instead on input line 100.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 108.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 109.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
@@ -748,10 +748,7 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 File: pics/flow.png Graphic file (type png)
 <use pics/flow.png>
 Package pdftex.def Info: pics/flow.png  used on input line 177.
-(pdftex.def)             Requested size: 169.09293pt x 277.44533pt.
-
-Underfull \vbox (badness 5331) has occurred while \output is active []
-
+(pdftex.def)             Requested size: 229.48352pt x 376.53961pt.
 <pics/holes.png, id=15, 420.82219pt x 220.57407pt>
 File: pics/holes.png Graphic file (type png)
 <use pics/holes.png>
@@ -759,15 +756,13 @@ Package pdftex.def Info: pics/holes.png  used on input line 194.
 (pdftex.def)             Requested size: 144.93889pt x 75.97023pt.
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 214.
 
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
+) [2 <./pics/flow.png> <./pics/holes.png>]
 Overfull \hbox (1.43735pt too wide) in paragraph at lines 230--230
 []\OT1/pcr/m/n/9 //physical entities are needed for simulation[] 
  []
 
-[2 <./pics/flow.png> <./pics/holes.png>]
 <pics/L.PNG, id=23, 460.72125pt x 627.84563pt>
 File: pics/L.PNG Graphic file (type png)
 <use pics/L.PNG>
@@ -784,64 +779,72 @@ Overfull \hbox (8.95659pt too wide) in paragraph at lines 282--284
  []
 
 [3 <./pics/L.PNG> <./pics/L-ele.png>]
-<pics/Sim.png, id=36, 660.21657pt x 603.75563pt>
+<pics/Sim.png, id=34, 660.21657pt x 603.75563pt>
 File: pics/Sim.png Graphic file (type png)
 <use pics/Sim.png>
-Package pdftex.def Info: pics/Sim.png  used on input line 384.
+Package pdftex.def Info: pics/Sim.png  used on input line 385.
 (pdftex.def)             Requested size: 169.09293pt x 154.63277pt.
-<pics/ultimaker-pinter.png, id=37, 562.1pt x 1054.94125pt>
-File: pics/ultimaker-pinter.png Graphic file (type png)
-<use pics/ultimaker-pinter.png>
-Package pdftex.def Info: pics/ultimaker-pinter.png  used on input line 424.
-(pdftex.def)             Requested size: 96.62347pt x 181.33368pt.
-<pics/small_print.jpg, id=38, 4047.12pt x 3035.34pt>
-File: pics/small_print.jpg Graphic file (type jpg)
-<use pics/small_print.jpg>
-Package pdftex.def Info: pics/small_print.jpg  used on input line 445.
-(pdftex.def)             Requested size: 193.25063pt x 144.92119pt.
+<pics/ultimaker-pinter2.png, id=35, 551.05875pt x 736.25063pt>
+File: pics/ultimaker-pinter2.png Graphic file (type png)
+<use pics/ultimaker-pinter2.png>
+Package pdftex.def Info: pics/ultimaker-pinter2.png  used on input line 427.
+(pdftex.def)             Requested size: 181.17178pt x 242.05348pt.
+<pics/muscle_print.jpg, id=36, 1791.69376pt x 3035.34pt>
+File: pics/muscle_print.jpg Graphic file (type jpg)
+<use pics/muscle_print.jpg>
+Package pdftex.def Info: pics/muscle_print.jpg  used on input line 446.
+(pdftex.def)             Requested size: 120.78119pt x 204.57556pt.
+<pics/fascicles.jpg, id=37, 1587.9325pt x 3035.34pt>
+File: pics/fascicles.jpg Graphic file (type jpg)
+<use pics/fascicles.jpg>
+Package pdftex.def Info: pics/fascicles.jpg  used on input line 447.
+(pdftex.def)             Requested size: 107.01047pt x 204.52924pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5077) has occurred while \output is active []
 
- [4 <./pics/Sim.png> <./pics/ultimaker-pinter.png>]
-<pics/Streamlines.PNG, id=44, 794.2172pt x 446.41782pt>
-File: pics/Streamlines.PNG Graphic file (type png)
-<use pics/Streamlines.PNG>
-Package pdftex.def Info: pics/Streamlines.PNG  used on input line 474.
+ [4 <./pics/Sim.png>]
+<pics/Streamlines_zoom.PNG, id=44, 794.2172pt x 446.41782pt>
+File: pics/Streamlines_zoom.PNG Graphic file (type png)
+<use pics/Streamlines_zoom.PNG>
+Package pdftex.def Info: pics/Streamlines_zoom.PNG  used on input line 481.
 (pdftex.def)             Requested size: 120.78119pt x 67.88618pt.
-<pics/refStreamlines.PNG, id=45, 813.79031pt x 447.92343pt>
-File: pics/refStreamlines.PNG Graphic file (type png)
-<use pics/refStreamlines.PNG>
-Package pdftex.def Info: pics/refStreamlines.PNG  used on input line 475.
+<pics/refStreamlines_zoom.PNG, id=45, 813.79031pt x 447.92343pt>
+File: pics/refStreamlines_zoom.PNG Graphic file (type png)
+<use pics/refStreamlines_zoom.PNG>
+Package pdftex.def Info: pics/refStreamlines_zoom.PNG  used on input line 482.
 (pdftex.def)             Requested size: 123.19548pt x 67.80757pt.
 
-Overfull \hbox (4.12431pt too wide) in paragraph at lines 474--476
+Overfull \hbox (4.12431pt too wide) in paragraph at lines 481--483
 [][] [] 
  []
 
-(documentation.bbl) [5 <./pics/Streamlines.PNG> <./pics/refStreamlines.PNG> <./
-pics/small_print.jpg>] (documentation.aux) ) 
+(documentation.bbl [5 <./pics/ultimaker-pinter2.png> <./pics/muscle_print.jpg> 
+<./pics/fascicles.jpg> <./pics/Streamlines_zoom.PNG> <./pics/refStreamlines_zoo
+m.PNG>]) [6
+
+] (documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 14269 strings out of 492973
- 283774 string characters out of 3135938
- 310911 words of memory out of 3000000
- 17999 multiletter control sequences out of 15000+200000
- 580527 words of font info for 120 fonts, out of 3000000 for 9000
+ 14275 strings out of 492973
+ 283943 string characters out of 3135938
+ 311911 words of memory out of 3000000
+ 18003 multiletter control sequences out of 15000+200000
+ 580827 words of font info for 121 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,63p,314b,542s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/
-enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/s
-ymbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (5 pages, 5863824 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic
+/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on documentation.pdf (6 pages, 5208758 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 88 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -103,7 +103,8 @@ They often form a heterogeneous curvature, while the tendon and bone attachments
 Each muscle consists of multiple muscle fibers which can contract via myosin motors, according to Jiangcheng et al. 
 \cite{Jiangcheng2015}, and thus create a force pulling on the bones. 
 Each motor is organized as a chain of contractile parts, called sarcomeres. 
-The fibers are not long enough to cover the whole muscle, so they are grouped in paralleled bundles called fascicles. 
+The fibers are bundled into fascicles, which contain 10 to 100 fibers and are sheathed by a tissue.
+This protects and stabilizes the fibers when under load.
 
 According to \cite{Etemadi.et.Al.} the biceps of an athletic individual has around 300.000 muscle fibers, which are single cells approximately 50 \si\micro m in diameter and several centimeters long \cite{Cooper2000}. 
 Each fiber has a thick myosin filament and a thin actin filament, which surrounds the myosin. 
@@ -122,7 +123,7 @@ The tracing algorithm however is prone to noise in the acquired data.
 Therefore, we need a method to calculate the trajectories of these fascicles in a three-dimensional space.
 Muscles are often modeled using a lumped-parameter approach that assumes a simplified arrangement of fascicles. 
 However, as Choi and Blemker \cite{Choi2013} stated, these models are not able to cover three-dimensional deformations.
-One of the more promising approach is using a Laplacian vector field as presented by Choi et al. \cite{Choi2013}. 
+One of the more promising approaches is using a Laplacian vector field as presented by Choi et al. \cite{Choi2013}. 
 
 The goal of our work is the approximation of muscle fascicles based on the 3D-model of a muscle, primarily the musculus biceps brachii, with an approach using a Laplacian vector field. 
 
@@ -143,38 +144,37 @@ To accomplish our goal, we need a tool to easily mesh the biceps and render it, 
 Gmsh ~\cite{Geuzaine2009} is used for generating 3-D finite element meshes with built in pre- and post processing. 
 We use it for multiple reasons as it is free software that features it's own scripting language, which uses code similar to C++ with loops, conditionals and user-defined macros.
 We use these features, because they match our needs for meshing, simulation and analysis of the model. 
-It can be compiled without the GUI, directly from the command line. 
+It can be compiled without the GUI, for use directly from the command line. 
 For other manipulations and computations we use Python.
 
 The first step when calculating streamlines is to acquire a 3-dimensional model of a muscle, in our case the biceps.
 There are a couple of ways to do this.
 We got our model from a computed tomography scan (CT-scan).
 Although the scan was of decent quality, the mesh was incomplete due to some holes in the surface, possibly due to data noise during the CT-scan.
-To repair these holes is the first step in our pipeline (figure \ref{fig:flow}). 
+Repairing these holes is the first step in our pipeline (figure \ref{fig:flow}). 
 
-The stl-file does not connect the surface triangles with its neighbors, resulting in many independent surfaces. 
+The STL-file does not connect the surface triangles with its neighbors, resulting in many independent surfaces. 
 Gmsh however needs one big surface to create a volume in which we can compute the streamlines. 
-In order to connect all the small surfaces, we reclassify the mesh with a threshold of 0.
-This runs an edge-detection for all triangles with an angle to its neighbor greater than 0 (so basically every neighbor) and we can connect all the detected surfaces to one big hull.
+In order to connect all the small surfaces, we reclassify the mesh and we thus connect all the surfaces to one big hull.
 This procedure is step 3 in our pipeline (figure \ref{fig:flow}). 
-3D-Meshing the volume is done completely by gmsh. 
+3D-Meshing the volume is done completely by Gmsh. 
 
-The reclassified muscle can then be reassembled within a gmsh specific script file.
+The reclassified muscle can then be reassembled within a Gmsh specific script file.
 While we run this script, we also detect the inflow and outflow surfaces for later steps.
 This is done by executing a python program. 
  
-Since a Laplacian vector field yields reasonable results when simulating fascicle arrangement, we use a simulation of an electronic field, for the reason that it implements the Laplacian equations. 
-GetDP the solver, used by gmsh, calculates the gradient inside the biceps' mesh.
+Since a Laplacian vector field yields reasonable results when simulating fascicle arrangement, we use a simulation of an electric field, for the reason that it implements the Laplacian equations. 
+GetDP the solver, used by Gmsh, calculates the gradient inside the biceps' mesh.
 
 The calculations result in many vectors which indicate the direction and force which apply on the  streamlines. 
 On this vector-view we apply the streamlines-plugin which results in decent streamlines in the biceps brachii.
 This procedure is step two in our computation in the flowchart.
 
-With help of another Python script we extract the streamlines from the post-processing file and write them in a new geo file. 
-Merging this file with the original biceps surface displays their arrangement, as can be seen in the title picture \ref{fig:teaser}.
+With help of another Python script we extract the streamlines from the post-processing file and write them into a new geo file. 
+Merging this file with the original biceps surface displays their arrangement, as can be seen in the title picture.
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=.7\linewidth]{flow.png}
+		\includegraphics[width=0.95\linewidth]{flow.png}
 	\end{center}
 	\caption{Flowchart of our Pipeline}
 	\label{fig:flow}
@@ -183,9 +183,9 @@ Merging this file with the original biceps surface displays their arrangement, a
 \subsection{Preparations}
 As we start from a CT-scan we first need to check whether the volume is complete and closed, since noise can corrupt the data during scanning.
 The biceps, as the name indicates, has two heads. 
-Close to the fork we noticed little holes in the surface, as seen  in figure \ref{fig:holes}, as we tried to mesh the volume, which caused gmsh to crash. 
+Close to the fork, there are small holes in the surface, as seen  in figure \ref{fig:holes}, which cause Gmsh to crash, when meshing the model. 
 In oder to proceed we have to check for holes and close them.
-Therefore we used a repair feature which most of the common 3D modeling tools share. 
+Therefore we use a repair feature which most of the common 3D modeling tools share. 
 
 For easier computation and better outcome of the streamlines, we cut the muscle horizontal just below the fork and above the main volume (assuming that the fork is pointing upwards or rather along the z-axis). 
 
@@ -199,13 +199,13 @@ For easier computation and better outcome of the streamlines, we cut the muscle 
 
 \subsection{Reassembling}
 The stl-file does not connect the surface triangles with its neighbors. 
-Gmesh however needs one big surface to create a volume in which we can compute the streamlines. 
+Gmsh however needs one big surface to create a volume in which we can compute the streamlines. 
 To connect all the small surfaces, we use the reclassify option with a threshold of 0.
 This runs an edge-detection for all triangles with an angle to its neighbor greater than \ang{0}. 
 This excludes the two cut surfaces, since these surfaces all have an angle of \ang{0}. 
 The prepared muscle is then processed in our pipeline, see Figure ~\ref{fig:flow}. 
 Finally we can recombine all the detected surfaces to one big surface. 
-The recombination is done within gmsh by iterating over the surfaces and declaring the recombined surface as one. 
+The recombination is done within Gmsh by iterating over the surfaces and declaring the recombined surface as one. 
 The basic operations done in the script are to be seen in the code fragment below. 
 From all the surfaces, a compound surface is created which then is combined in a surface loop. 
 The parameters used, for example Loop(10000) means that a new loop, with the number 10000 as a name, is defined. 
@@ -245,7 +245,7 @@ By default Gmsh chooses between three 2D algorithms and two 3D algorithms.
 The automatic algorithm selection tries to select the most appropriate for the given structure.
 
 For 2D algorithms there are "MeshAdapt", "Delauny" and the "Frontal" algorithm.
-Every one of them has different uses. 
+Every one of them has different use cases. 
 According to Gmsh the "MeshAdapt" works best for very complex, curved surfaces.
 "Frontal" is the best choice, when high element quality is important and "Delauny" is fastest for large meshes of plane surfaces.
 As stated in the manual for Gmsh the automatic selection chooses "Delauny" for plane surface and "MeshAdapt" for all other surfaces. 
@@ -267,13 +267,13 @@ In the code fragment, already shown in the "Reassembling"-chapter, the line "Mes
 %-------------------------------------------------------------------------
 
 \subsection{Simulation}
-Gmsh's solver getDP features a plugin, which calculates the streamlines based on the vector field. 
+Gmsh's solver GetDP features a plugin, which calculates the streamlines based on the vector field. 
 Therefore we need a simulation on fluid flow or similar. 
 Electrostatics in a dielectric environment meets the requirement for the Laplace equation, as well as thermodynamics does.
 We tried out both thermodynamic and electrostatic simulation. 
-In figure ~\ref{fig:L} we see the unsatisfying results we earned using the thermodynamic approach. 
+In figure ~\ref{fig:L} we see the unsatisfying results we obtained using the thermodynamic approach. 
 At the corner of the L-figure there are streamlines leaving the Model. 
-The result of the electrostatic simulation is spread evenly and has fewer whirls. 
+The result of the electrostatic simulation is spread evenly and has fewer vortices. 
 It has a overall better coverage of the model.
 
 \begin{figure}
@@ -304,18 +304,19 @@ The structure of the file is as follows:
 	After that we define abstract regions, that are used below.
 	\item[Function]
 	Here we define material laws.
+	We choose the dielectric permittivity of our muscle to be $\epsilon = 8.854187818 *10^{-12}$, the electric constant.
 	\item[Constraint]
 	The Dirichlet boundary condition is defined piecewise. 
 	The constraint "Dirichlet\_Ele" is invoked later in the FunctionSpace.
 	\item[Group]
-	This is the domain definition of The FunctionSpace, which lists al regions on which a field is defined. 
+	This is the domain definition of the FunctionSpace, which lists al regions on which a field is defined. 
 	The domain contains both the volume and the surface of the muscle.
 	\item[FunctionSpace]
 	The FunctionSpace is used to pick the electric scalar potential. 
 	The solution is defined  by:\newline
 	-the domain definition\newline
-	-a type\newline
-	-a set of basis functions (scalar nodal basis functions for the finite element method)\newline 
+	-a type, in our case a scalar field\newline
+	-a set of basis functions which are scalar nodal basis functions for the finite element method\newline 
 	-a set of entities to which the basis functions are associated (here all the nodes of the domain)\newline
 	-a constraint (here the Dirichlet boundary conditions)
 	
@@ -325,7 +326,7 @@ The structure of the file is as follows:
 	
 	\item[Integration]
 	The "Integration" segment specifies how many points are used for the Gauss quadrature rules. 
-	We use 3 points for lines, 4 for triangles and 4 for Quadrangles.
+	We use 3 points for lines and 4 for triangles.
 	
 	\item[Formulation]
 	A GetDP formulation encodes a weak formulation of the partial differential equation. i.e. 
@@ -337,11 +338,11 @@ The structure of the file is as follows:
 %	\end{equation*}
 	
 	In our case this weak formulation involves finding v such that
-	\[-\nabla \langle \varepsilon *\mathrel{grad} v, v' \rangle _{VolEle}= 0\]
+	\[-\langle \nabla (\varepsilon *\mathrel{grad} v), v' \rangle _{VolEle}= 0\]
 	for all functions v'. $\langle .,. \rangle _{VolEle}$ denotes the inner product over the domain "VolEle". 
 	In these equations this domain is our biceps. 
 	If v' is differentiable, we usually can find v by using integration by parts with Green's identity:
-	\[\langle \epsilon * \mathrel{grad} v, \mathrel{grad} v' \rangle _{VolEle} + \langle n * \epsilon * \mathrel{grad} , v' \rangle _{BndVolEle} =  0\]
+	\[\langle \epsilon * \mathrel{grad} v, \mathrel{grad} v' \rangle _{VolEle} + \langle n * \epsilon * \mathrel{grad} v, v' \rangle _{BndVolEle} =  0\]
 	for all v', where "BndVolEle" is the boundary of "VolEle" (the surface of our biceps). 
 	In this equation the surface term vanishes, since there is either no function v' or the first factor of the inner product is zero.
 	Thus, in our simulation, we are looking for functions v such that 
@@ -359,7 +360,7 @@ The structure of the file is as follows:
 	\end{verbatim}
 	
 	This "Integral" statement in the formulation is a representation of this weak formulation. 
-	It features four separated arguments:
+	It features four by semicolons separated arguments:
 	
 	-the density\newline
 	-the domain of integration, \newline
@@ -370,7 +371,7 @@ The structure of the file is as follows:
 	In the resolution it is specified what to do with the weak formulation. 
 	We simply generate a linear system, solve it and save the solution.  
 	\item[Post Processing]
-	There are two parts of post-processing available in getDP. 
+	There are two parts of post-processing available in GetDP. 
 	First we can evaluate the outcome of the formulation. 
 	Here the quantities are the scalar electric potential, the electric field and the electric displacement.
 	The second part are post-processing operations. 
@@ -392,36 +393,38 @@ We now use the earlier mentioned plugin within the post processing described abo
 The starting points of the streamlines are on the upper surface of the biceps, which was calculated in the reassembling section. 
 The number of streamlines can be set when executing the pipeline.
 The parameters are given as number of points on the X- and Y- axis. 
-The extents of the surface, are the minimal an maximal X and Y values. 
+The extents of the surface, are the minimal and maximal X and Y values. 
 That is why not all of the streamlines will start inside of the muscle. 
+
 Additionally, we can set the number of steps we want to execute  and the length of a step.
 The length of the vectors for the streamlines depend on the potential at the point of calculation at that timestep.
 Afterwards, instead of extracting the complete streamlines, the exported file only contains the starting point and vectors to each point of the streamlines. 
+This file consists an entry for the number of timesteps or points respectively, followed by the x-, y- and z-displacement from the starting point to each individual point of the streamline.
 This however can't be imported into Gmsh since it will only display these vectors and thus we process this data. 
 
 \section{Representation of Data}
-Our next step is to add up the vectors of each streamline separately. 
+Our next step is to sum up the vectors of each streamline separately. 
 This is done by our python script streamline-converter, which gets the vector data from the muscleStreamline.pos file. 
 Furthermore, the script creates a new file streamlines.geo with the data of each streamline in it. 
 All in all, we can now use Gmsh to merge the streamlines.geo file with our biceps surface to visualize the result. 
 However there are multiple ways to represent the streamlines. 
-One way to visualize the result is 3D-printing the streamlines.
+Another way to visualize the result is 3D-printing the streamlines.
 
 \subsection{Printing}
 Currently the streamlines are lines without any volume, but to print them they need to be thickened. 
 In order to print the fascicles, a python script needs to be executed, which creates points along the streamlines at the target radius, resulting in a tube.
 These points are then connected and meshed. 
-We chose the tubes to have hexagonal profile.
+We chose the profile of the tubes to be hexagonal.
 
 After a volume is created, all of the streamlines are combined into one stl file. 
 Streamlines that start outside of the biceps will get erased in this step, because they will not have any points in the file. 
 In order to simplify the model, we reduced the amount of fascicles to a reasonable number of 49, which still allowed to illustrate the generated streamlines.
 
-The 3D-Printer we use is the \textit{Ultimaker 3 extended}, which is equipped with two extruders (figure \ref{fig:3dPrinter}). %TODO Bild (von eigenem Drucker)
+The 3D-Printer we use is the \textit{Ultimaker 3 extended}, which is equipped with two extruders (figure \ref{fig:3dPrinter}). 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.4\linewidth]{ultimaker-pinter.png}
+	\includegraphics[width=.75\linewidth]{ultimaker-pinter2.png}
 	\caption{The Ultimaker 3 extended}
 	\label{fig:3dPrinter}
 \end{figure}
@@ -430,39 +433,43 @@ The software used to slice and prepare the print is Cura.
 Our first approach was to subtract the muscle fibers from the full biceps volume using blender in order to have a hollowed out model with space for the fibers. 
 This gives us the option to print with two different materials or colors e.g. transparent muscle and red fascicles inside. 
 
-We tried printing with a clear material but we didn't get a result, which allowed the inner setup to be visible. 
+We tried printing with a clear material but we didn't get a result, which allowed the interior to be visible, because the filament was not as transparent as we expected it to be.
 Our second approach involved cutting the biceps into two separate halves in which we are able to insert the red fascicles. 
 This print however failed because the nozzle of the printcore responsible for the support got clogged. 
-Our final solution was to print the whole model of the muscle without the fascicles and to cut in two halves after finishing printing (figure \ref{fig:printedBiceps}). 
-%TODO finish this
-%We came up with another solution. 
-%We printed the muscle without the clear material. 
-%The number of fibres was 7 x 7 when executing our pipeline. 
-%The printed muscle, however has fewer fibres, as not all of the streamline staring points lay inside the muscle. 
-%The outcome can be seen in figure \ref{fig:printedBiceps}. 
+
+Our final solution was to print the whole model of the muscle without the fascicles and to cut in two halves after finishing printing.  
+We also cut the fascicles in two halves and printing them separately, resulting in a more stable print. 
+Then, we simply glued these halves together.
+The only prints which were somehow suitable to visualize our results were some test-prints as seen in figure \ref{fig:printedBiceps}.
 
 \begin{figure}[H]
-		\includegraphics[width=.8\linewidth]{small_print.jpg} %TODO bild streamlines
-		\caption{A small, printed version of the biceps-model}
+		\includegraphics[width=.5\linewidth]{muscle_print.jpg} 
+		\includegraphics[width=.443\linewidth]{fascicles.jpg}
+		\caption{A small, printed version of the biceps-model(left) and the fascicles (right)}
 		\label{fig:printedBiceps}
 \end{figure}
 
 \section{Discussion}
+%TODO Einleitung
+During development and printing, we faced difficulties we had to work around. 
+Therefore we made some observations and decisions, which we discuss here, including limitations of the material and software, and choosing certain values.
+
 Reclassifying the Mesh is done by hand since Gmsh does not allow reclassifying a mesh by command line with parameters. 
 For our Model it is critical to set the threshold to zero. 
 This is because Gmsh would see the surface of the muscle as one, when a higher threshold was chosen.
 
 When working with meshes the level of detail plays a key role. 
 The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. 
-As far as refining by splitting goes, we managed to refine the mesh up to two times, before Gmsh crashed.
-This increases the amount of nodes by the factor of four. %TODO satz so richtig?
+Increasing the amount of nodes without a more detailed model can be accomplished by splitting the triangles in half.
+We managed to refine the mesh up to two times, before Gmsh crashed.
+This increases the number of tetrahedrons by the factor of four. 
 
-When calculating in the refined setup, the streamlines pass way more edges of the tetrahedrons inside the muscle and as a consequence get a correction in terms of direction and force. 
+When calculating in the refined setup, the streamlines pass a lot more edges of the tetrahedrons inside the muscle and as a consequence get a correction in terms of direction and force. 
 As a result we receive smoother streamlines, which cover more space. 
 This can be seen in figure ~\ref{fig:refStreamlines}.
-The refined mesh resulted in the streamlines having more curvature and cover the volume more evenly.
+The refined mesh results in the streamlines having more curvature and cover the volume more evenly.
 The two lowest streamlines in the figures show this difference quite accurately.
-While the unrefined mesh resulted in more edges and the two streamlines being too close to each other, the refined one is smoother and the fascicles position themselves closer to the surface.
+While the unrefined mesh results in more edges and the two streamlines being too close to each other, the refined one is smoother and the fascicles position themselves closer to the surface.
 
 When looking into runtime, the biggest factor is the number of points.
 Refining the model increases the runtime significantly. 
@@ -471,31 +478,36 @@ We had no problem calculating over 10.000 streamlines. When trying to calculate 
 
 \begin{figure}
 	\begin{minipage}{\linewidth}
-		\includegraphics[width=.5\linewidth]{Streamlines.PNG}
-		\includegraphics[width=.51\linewidth]{refStreamlines.PNG}
+		\includegraphics[width=.5\linewidth]{Streamlines_zoom.PNG}
+		\includegraphics[width=.51\linewidth]{refStreamlines_zoom.PNG}
 		\caption{Comparison of the two different mesh densities and the resulting resolution of the streamlines. In the right picture the mesh has been refined.}
 		\label{fig:refStreamlines}
 	\end{minipage}
 \end{figure}
 
 \section{Conclusion}
-In conclusion we achieved our goal to develop a method for calculating muscular fascicles, based on the CT-scan.
+In conclusion we achieved our goal of developing a method for calculating muscular fascicles, based on the CT-scan.
 We provide the possibility, to specify the amount of streamlines, and the number of mesh refinements. 
 We applied the same procedure to a scan of the musculus triceps brachii as well. 
-The result is in similar quality as the biceps.
+The result has a similar quality as the biceps.
 Thus it is possible to try out further muscles and calculate their fascicle arrangement as well.
 We had difficulties printing the muscle as neither time, nor experience with 3D-printing was sufficient. 
-We wanted to print red streamlines into the transparent muscle with the help of the dual-printing function of the Ultimaker, but our two materials weren't compatible with one another. 
+We wanted to print red streamlines into the transparent muscle with the help of the dual-printing function of the Ultimaker, but our two materials weren't compatible with each other. 
 
 The resolution of the streamlines is currently limited to the resolution of the biceps-model. 
-Therefor, in order to improve the quality of the streamlines e.g. edge-smoothing, a CT-scan with a higher resolution is needed. 
+Therefore, in order to improve the quality of the streamlines e.g. edge-smoothing, a CT-scan with a higher resolution is needed. 
+This way we can get an even better distribution of the fascicles.
 
 \section{Future work}
 The realistic fascicles promise improvement in biomechanical simulation, as one is able to contract the muscle along the fibers, resulting in more realistic modeling. 
 Another possible work is to look into giving the calculated fascicles thickness based on measurements. 
 The challenge would be to fit a reasonable amount of fibers inside of the model without exceeding the boundaries.
 We have only scratched the surface of this topic in order to print the muscle.
-%TODO mehr text, mehr dinge, mehr mehr
+
+We tried several approaches on printing but there are many more, which may result in better results.
+It is also possible to model the muscle with it's fascicles using epoxy, but one must find a way to insert the the fibers into the muscle or rather create them beforehand and stabilize them while the epoxy of the muscle is hardening.
+The advantage of this procedure would be, that the muscle can be transparent and an improvement regarding stability of the model.
+%TODO mehr text, mehr dinge, mehr mehr (epoxyd-harz, andere herangehensweisen für printing)
 
 \bibliographystyle{abbrv}
 %%use following if all content of bibtex file should be shown
