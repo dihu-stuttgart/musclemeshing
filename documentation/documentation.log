@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  24 OCT 2018 21:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 NOV 2018 13:56
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -748,7 +748,7 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 File: pics/flow006.png Graphic file (type png)
 <use pics/flow006.png>
 Package pdftex.def Info: pics/flow006.png  used on input line 177.
-(pdftex.def)             Requested size: 195.66493pt x 320.74255pt.
+(pdftex.def)             Requested size: 190.83264pt x 312.81682pt.
 <pics/holes.png, id=15, 420.82219pt x 220.57407pt>
 File: pics/holes.png Graphic file (type png)
 <use pics/holes.png>
@@ -763,7 +763,7 @@ Overfull \hbox (1.43735pt too wide) in paragraph at lines 230--230
 []\OT1/pcr/m/n/9 //physical entities are needed for simulation[] 
  []
 
-[2 <./pics/flow006.png> <./pics/holes.png>]
+[2 <./pics/holes.png> <./pics/flow006.png>]
 <pics/L.PNG, id=23, 460.72125pt x 627.84563pt>
 File: pics/L.PNG Graphic file (type png)
 <use pics/L.PNG>
@@ -821,7 +821,7 @@ Overfull \hbox (4.12431pt too wide) in paragraph at lines 481--483
 Here is how much of TeX's memory you used:
  14275 strings out of 492973
  283958 string characters out of 3135938
- 310911 words of memory out of 3000000
+ 310903 words of memory out of 3000000
  18003 multiletter control sequences out of 15000+200000
  580827 words of font info for 121 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -837,7 +837,7 @@ Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/tim
 es/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (5 pages, 5197841 bytes).
+Output written on documentation.pdf (5 pages, 5197895 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
