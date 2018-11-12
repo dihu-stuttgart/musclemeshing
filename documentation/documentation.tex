@@ -56,7 +56,7 @@
 
 %% Abstract section.
 \abstract{
-	In this paper we discuss a way to implement a pipeline that allows the calculation of muscular fascicles based on the surface CT-scan of the muscle. 
+	In this Paper we discuss a way to implement a pipeline that allows the calculation of muscular fascicles based on the surface CT-scan of the muscle. 
 	Choi and Blemker showed in advance, that simple skeletal muscles have a fascicle arrangement, which can be computed with a Laplacian vector field. 
 	An electrostatic simulation considering a dielectric volume uses the same equation. 
 	In this work we use a similar approach and develope a method to calculate  a specifiable amount of fibers, using the finite element mesh generator Gmsh. 
@@ -161,16 +161,16 @@ This procedure is step 3 in our pipeline (figure \ref{fig:flow}).
 
 The reclassified muscle can then be reassembled within a Gmsh specific script file.
 While we run this script, we also detect the inflow and outflow surfaces for later steps.
-This is done by executing a python program. 
+This is done by executing a python program\footnote{ioDetect.py}. 
  
 Since a Laplacian vector field yields reasonable results when simulating fascicle arrangement, we use a simulation of an electric field, for the reason that it implements the Laplacian equations. 
 GetDP the solver, used by Gmsh, calculates the gradient inside the biceps' mesh.
 
 The calculations result in many vectors which indicate the direction and force which apply on the  streamlines. 
 On this vector-view we apply the streamlines-plugin which results in decent streamlines in the biceps brachii.
-This procedure is step 2 in our computation in the flowchart.
+This procedure is step 2 in our computation in the flowchart\footnote{muscle.pro}.
 
-With help of another Python script we extract the streamlines from the post-processing file and write them into a new geo file. 
+With help of another Python script we extract the streamlines from the post-processing file and write them into a new geo file\footnote{SLConvert.py}. 
 Merging this file with the original biceps surface displays their arrangement, as can be seen in the title picture.
 \begin{figure} 
 	\begin{center}
@@ -332,22 +332,22 @@ The structure of the file is as follows:
 	A GetDP formulation encodes a weak formulation of the partial differential equation. i.e. 
 	
 	
-	\[-\nabla (\varepsilon *\mathrel{grad} v) = 0\]
+	\[-\nabla \bullet (\varepsilon *\nabla v) = 0\]
 %	\begin{equation*}
 %	\nabla (\varepsilon *grad\ v) = 0
 %	\end{equation*}
 	
 	In our case this weak formulation involves finding v such that
-	\[-\langle \nabla (\varepsilon *\mathrel{grad} v), v' \rangle _{VolEle}= 0\]
-	for all functions v'. $\langle .,. \rangle _{VolEle}$ denotes the inner product over the domain "VolEle". 
+	\[-\langle \nabla \bullet (\varepsilon \cdot \nabla v), v' \rangle _{VolEle}= 0\]
+	for all functions v'. The inner product over the domain "VolEle" is shown as $\langle .,. \rangle _{VolEle}$. 
 	In these equations this domain is our biceps. 
 	If v' is differentiable, we usually can find v by using integration by parts with Green's identity:
-	\[\langle \epsilon * \mathrel{grad} v, \mathrel{grad} v' \rangle _{VolEle} + \langle n * \epsilon * \mathrel{grad} v, v' \rangle _{BndVolEle} =  0\]
+	\[\langle \epsilon \cdot \nabla v, \nabla v' \rangle _{VolEle} + \langle n \bullet (\epsilon \cdot \nabla v), v' \rangle _{BndVolEle} =  0\]
 	for all v', where "BndVolEle" is the boundary of "VolEle" (the surface of our biceps). 
 	In this equation the surface term vanishes, since there is either no function v' or the first factor of the inner product is zero.
 	Thus, in our simulation, we are looking for functions v such that 
 	\[
-	\langle {\epsilon * \mathrel{grad} {v}, \mathrel{grad} v'} \rangle _{VolEle} =  0
+	\langle {\epsilon \cdot \mathrel{grad} {v}, \mathrel{grad} v'} \rangle _{VolEle} =  0
 	\]
 	
 	holds for all v'.
@@ -440,7 +440,6 @@ This print however failed because the nozzle of the printcore responsible for th
 Our final solution (figure \ref{fig:printedBiceps}) was to print the whole model of the muscle without the fascicles and to cut it in two halves after finishing printing.  
 We also tried cutting the fascicles in two halves and printing them separately, which resulted in a more stable print. 
 Then, we simply glued these halves together.
-The only prints which were somehow suitable to visualize our results were some test-prints as seen in figure \ref{fig:printedBiceps}.
 
 \begin{figure}[H]
 		\includegraphics[width=.5\linewidth]{muscle_print.jpg} 
@@ -456,7 +455,7 @@ Therefore we made some observations and decisions, which we discuss here, includ
 
 Reclassifying the Mesh is done by hand since Gmsh does not allow reclassifying a mesh by command line with parameters. 
 For our Model it is critical to set the threshold to zero. 
-This is because Gmsh would see the surface of the muscle as one, when a higher threshold was chosen.
+This is because Gmsh would see parts of the surfaces as one, when a higher threshold was chosen, which results in unambiguous surfaces for our input and output of the electric current.
 
 When working with meshes the resolution plays a key role. 
 The model we used was smooth but we noticed a significant increase in quality as we refined the mesh before executing the pipeline. 

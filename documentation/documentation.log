@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 NOV 2018 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6745 64-bit) (preloaded format=pdflatex 2018.8.10)  12 NOV 2018 17:17
 entering extended mode
 **./documentation.tex
 (documentation.tex
@@ -794,36 +794,36 @@ Package pdftex.def Info: pics/ultimaker-pinter2.png  used on input line 427.
 <pics/muscle_print.jpg, id=43, 1791.69376pt x 3035.34pt>
 File: pics/muscle_print.jpg Graphic file (type jpg)
 <use pics/muscle_print.jpg>
-Package pdftex.def Info: pics/muscle_print.jpg  used on input line 446.
+Package pdftex.def Info: pics/muscle_print.jpg  used on input line 445.
 (pdftex.def)             Requested size: 120.78119pt x 204.57556pt.
 <pics/fascicles.jpg, id=44, 1587.9325pt x 3035.34pt>
 File: pics/fascicles.jpg Graphic file (type jpg)
 <use pics/fascicles.jpg>
-Package pdftex.def Info: pics/fascicles.jpg  used on input line 447.
+Package pdftex.def Info: pics/fascicles.jpg  used on input line 446.
 (pdftex.def)             Requested size: 107.01047pt x 204.52924pt.
 <pics/Streamlines_zoom.PNG, id=45, 794.2172pt x 446.41782pt>
 File: pics/Streamlines_zoom.PNG Graphic file (type png)
 <use pics/Streamlines_zoom.PNG>
-Package pdftex.def Info: pics/Streamlines_zoom.PNG  used on input line 481.
+Package pdftex.def Info: pics/Streamlines_zoom.PNG  used on input line 480.
 (pdftex.def)             Requested size: 120.78119pt x 67.88618pt.
 <pics/refStreamlines_zoom.PNG, id=46, 813.79031pt x 447.92343pt>
 File: pics/refStreamlines_zoom.PNG Graphic file (type png)
 <use pics/refStreamlines_zoom.PNG>
-Package pdftex.def Info: pics/refStreamlines_zoom.PNG  used on input line 482.
+Package pdftex.def Info: pics/refStreamlines_zoom.PNG  used on input line 481.
 (pdftex.def)             Requested size: 123.19548pt x 67.80757pt.
 
-Overfull \hbox (4.12431pt too wide) in paragraph at lines 481--483
+Overfull \hbox (4.12431pt too wide) in paragraph at lines 480--482
 [][] [] 
  []
 
 (documentation.bbl) [5 <./pics/muscle_print.jpg> <./pics/fascicles.jpg> <./pics
 /Streamlines_zoom.PNG> <./pics/refStreamlines_zoom.PNG>] (documentation.aux) ) 
 Here is how much of TeX's memory you used:
- 14275 strings out of 492973
- 283958 string characters out of 3135938
+ 14276 strings out of 492973
+ 283964 string characters out of 3135938
  310903 words of memory out of 3000000
  18003 multiletter control sequences out of 15000+200000
- 580827 words of font info for 121 fonts, out of 3000000 for 9000
+ 581905 words of font info for 122 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,63p,314b,542s stack positions out of 5000i,500n,10000p,200000b,50000s
 {
@@ -837,7 +837,7 @@ Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/tim
 es/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (5 pages, 5197895 bytes).
+Output written on documentation.pdf (5 pages, 5198437 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
