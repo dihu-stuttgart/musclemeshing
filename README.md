@@ -17,7 +17,7 @@ Streamline plotter contains the unfinalized version of the streamline plotter us
 
 Test contains early testing and exploring of gmsh.
 
-dat contains the raw biceps stl as well as a triceps, and the cut biceps.
+data contains the raw biceps stl as well as a triceps, and the cut biceps.
 
 documentation contains the code as well as the final documentation work for the Projekt-Inf.
 
