@@ -1,5 +1,13 @@
 # musclemeshing
-Repo for Proj INF
+Repo for Proj INF "Generating and Visualizing Muscular Fascicle Arrangements" 
+By Jan Kusterer, Niven Ratnamaheson, Raimund Rolfs and Tobias Walter.
+
+Abstract:
+In this Paper we discuss a way to implement a pipeline that allows the calculation of muscular fascicles based on the surface CT-scan of the muscle.
+	Choi and Blemker showed in advance, that simple skeletal muscles have a fascicle arrangement, which can be computed with a Laplacian vector field. 
+	An electrostatic simulation considering a dielectric volume uses the same equation. 
+	In this work we use a similar approach and develope a method to calculate  a specifiable amount of fibers, using the finite element mesh generator Gmsh. 
+	In addition we visualize the outcome in forms of meshes and 3D-Printing.
 
 3dprint contains the Python script, which converts the Streamlines to tubes, as well as some of the printed models.
 The final printed models are biceps.stl, thick_fibre_5.3mf and thick_fibre_51.3mf.
